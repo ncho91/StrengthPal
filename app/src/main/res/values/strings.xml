@@ -2,7 +2,16 @@
 <resources>
 
     <string name="app_name">StrengthPal</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="fragment_default">Spread swoleness, not hate</string>
     <string name="action_settings">Settings</string>
+    <string-array name="drawer_options">
+        <item>Workout History</item>
+        <item>Find a Gym</item>
+        <item>Workouts</item>
+        <item>Settings</item>
+        <item>About</item>
+    </string-array>
+    <string name="drawer_open">Open the Navigation Drawer</string>
+    <string name="drawer_close">Close the Navigation Drawer</string>
 
 </resources>
