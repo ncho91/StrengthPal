@@ -11,7 +11,16 @@
         <item>Settings</item>
         <item>About</item>
     </string-array>
+
+    <array name="drawer_icons">
+        <item>@drawable/ic_history</item>
+        <item>@drawable/ic_map</item>
+        <item>@drawable/ic_workout</item>
+        <item>@drawable/ic_settings</item>
+        <item>@drawable/ic_about</item>
+    </array>
     <string name="drawer_open">Open the Navigation Drawer</string>
     <string name="drawer_close">Close the Navigation Drawer</string>
+    <string name="desc_list_item_icon">Item Icon</string>
 
 </resources>

@@ -1,7 +1,12 @@
 package com.cs371m.strengthpal;
 
+import com.cs371m.strengthpal.model.NavDrawerItem;
+import com.cs371m.strengthpal.adapter.NavDrawerListAdapter;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Gravity;
@@ -13,16 +18,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 
 public class MyActivity extends Activity {
     // Variable for the drawer
+    private static final String TAG = "StrengthPal";
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerTitleLabels;
+    private TypedArray mDrawerIcons;
+
+    private ArrayList<NavDrawerItem> navDrawerItems;
+    private NavDrawerListAdapter adapter;
 
 
     @Override
@@ -33,15 +46,33 @@ public class MyActivity extends Activity {
         // get this shit ready
         mTitle = mDrawerTitle = getTitle();
         mDrawerTitleLabels = getResources().getStringArray(R.array.drawer_options);
+        mDrawerIcons = getResources().obtainTypedArray(R.array.drawer_icons);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // fancy ass shadow
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
+        navDrawerItems = new ArrayList<NavDrawerItem>();
+
+        //add the items to the array
+        //workout history
+        navDrawerItems.add(new NavDrawerItem(mDrawerTitleLabels[0], mDrawerIcons.getResourceId(0, -1)));
+        //find a gym
+        navDrawerItems.add(new NavDrawerItem(mDrawerTitleLabels[1], mDrawerIcons.getResourceId(1, -1)));
+        //workouts
+        navDrawerItems.add(new NavDrawerItem(mDrawerTitleLabels[2], mDrawerIcons.getResourceId(2, -1)));
+        //settings
+        navDrawerItems.add(new NavDrawerItem(mDrawerTitleLabels[3], mDrawerIcons.getResourceId(3, -1)));
+        //about
+        navDrawerItems.add(new NavDrawerItem(mDrawerTitleLabels[4], mDrawerIcons.getResourceId(4, -1)));
+
+        //recycle typed array
+        mDrawerIcons.recycle();
+
         // drawer's list view and a click listener
         // because each title is going to be different, we might need to rethink this line
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mDrawerTitleLabels));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        adapter = new NavDrawerListAdapter(getApplicationContext(),navDrawerItems);
+        mDrawerList.setAdapter(adapter);
 
         // make the icon on the action bar behave as a toggle for the drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +100,7 @@ public class MyActivity extends Activity {
 
 
         if (savedInstanceState == null) {
-            selectItem(0);
+            displayView(0);
         }
     }
 
@@ -88,7 +119,7 @@ public class MyActivity extends Activity {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         //follow this pattern. we won't have a websearch but we might have options pertaining to
         //each fragment. maybe a switch() here?
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -98,12 +129,12 @@ public class MyActivity extends Activity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        int id = item.getItemId();
-        //handle different things here
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
 
     }
 
@@ -111,12 +142,68 @@ public class MyActivity extends Activity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+            displayView(position);
         }
     }
 
-    private void selectItem(int position) {
-        //update main content with a new fragment
-        Fragment fragment = new Fragment();
+    /**
+     * Display the fragment view for the selected nav item
+     */
+    private void displayView(int position) {
+        // update the main content by replacing fragments
+        Fragment fragment = null;
+        switch (position) {
+            case 0:
+                fragment = new HistoryFragment();
+                break;
+            case 1:
+                fragment = new GymFragment();
+                break;
+            case 2:
+                fragment = new WorkoutFragment();
+                break;
+            case 3:
+                fragment = new SettingsFragment();
+                break;
+            case 4:
+                fragment = new AboutFragment();
+                break;
+
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+            //update selected item and title, then close drawer
+            mDrawerList.setItemChecked(position, true);
+            mDrawerList.setSelection(position);
+            setTitle(mDrawerTitleLabels[position]);
+            mDrawerLayout.closeDrawer(mDrawerList);
+        }
+        else {
+            // error in creating fragment
+            Log.e(TAG, "Error in creating the fragment");
+        }
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(title);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 }
