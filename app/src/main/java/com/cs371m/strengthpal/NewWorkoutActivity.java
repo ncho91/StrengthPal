@@ -48,6 +48,15 @@ public class NewWorkoutActivity extends Activity {
                 EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text);
                 EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text);
 
+                Button mButtonRemove = (Button) newView.findViewById(R.id.remove_exercise_button);
+
+                mButtonRemove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        linearLayoutForm.removeView(newView);
+                    }
+                });
+
                 linearLayoutForm.addView(newView);
 
             }
