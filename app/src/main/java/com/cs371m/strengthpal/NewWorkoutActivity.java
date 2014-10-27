@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 public class NewWorkoutActivity extends Activity {
 
     //private LinearLayout mLayout;
-    //private EditText mEditText;
+    private EditText mEditText;
     private Button mButton;
 
 
