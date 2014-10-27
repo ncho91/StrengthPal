@@ -72,7 +72,7 @@ public class GymFragment extends Fragment {
 
             for (int i = 0; i < 25; i++) {
                 if (jsonGetter.coordinates[i][0] != 0) {
-                    map.addMarker(new MarkerOptions().position(new LatLng(jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1])).title(jsonGetter.names[i]));
+                    map.addMarker(new MarkerOptions().position(new LatLng(jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1])).title(jsonGetter.names[i]).snippet(jsonGetter.addresses[i]));
                 }
             }
         }
@@ -84,6 +84,7 @@ public class GymFragment extends Fragment {
 
         double[][] coordinates  = new double[25][2];
         String[] names = new String[25];
+        String[] addresses = new String[25];
 
         @Override
         protected String doInBackground(String... params) {
@@ -126,6 +127,7 @@ public class GymFragment extends Fragment {
                         coordinates[i][0] = item.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                         coordinates[i][1] = item.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
                         names[i] = item.getString("name");
+                        addresses[i] = item.getString("vicinity");
                         if (i == 24)
                             break;
                     } catch (Exception e) {
