@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="strong_lifts_list_a">
+        <item>@string/squat</item>
+        <item>@string/overhead_press</item>
+        <item>@string/barbell_row</item>
+    </array>
+
+    <array name="strong_lifts_list_b">
+        <item>@string/squat</item>
+        <item>@string/overhead_press</item>
+        <item>@string/deadlift</item>
+    </array>
+
+</resources>
