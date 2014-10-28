@@ -9,19 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="1">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/map_button"
-            android:layout_weight="1"
-            android:text="@string/button_map_view"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/list_button"
+            android:id="@+id/switchViewsButton"
             android:layout_weight="1"
             android:text="@string/button_list_view"/>
 

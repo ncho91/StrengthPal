@@ -40,7 +40,7 @@ public class MapPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMyLocationEnabled(true);
@@ -81,7 +81,16 @@ public class MapPage extends Fragment {
             }
         }
 
-        return v;
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        Fragment mapFragment = getFragmentManager().findFragmentById(R.id.map);
+        getFragmentManager().beginTransaction().remove(mapFragment).commit();
+
+        super.onDestroyView();
     }
 
     private class getJSON extends AsyncTask<String, Integer, String> {

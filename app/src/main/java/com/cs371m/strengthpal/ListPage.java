@@ -9,14 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -38,9 +31,6 @@ public class ListPage extends Fragment {
     List<String> networkProviders;
     Location currentLocation;
     ListView gymList;
-    ArrayList<String> nameLocation;
-    ArrayAdapter<String> adapter;
-
     ArrayList<GymListItem> gyms;
     GymListAdapter gymAdapter;
 
@@ -61,7 +51,6 @@ public class ListPage extends Fragment {
         }
 
         if (currentLocation != null) {
-            LatLng coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
             String query = "https://maps.googleapis.com/maps/api/place/search/json" +
                     "?location=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() +
@@ -78,25 +67,20 @@ public class ListPage extends Fragment {
                 // do nothing
             }
 
-            nameLocation = new ArrayList<String>();
-
             gyms = new ArrayList<GymListItem>();
+
+            float distances[] = new float[3];
 
             for (int i = 0; i < 25; i++) {
                 if (jsonGetter.coordinates[i][0] != 0) {
-                    //map.addMarker(new MarkerOptions().position(new LatLng(jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1])).title(jsonGetter.names[i]).snippet(jsonGetter.addresses[i]));
-                    nameLocation.add(jsonGetter.names[i] + " " + jsonGetter.addresses[i]);
-                    gyms.add(new GymListItem(jsonGetter.names[i], jsonGetter.addresses[i]));
+                    Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1], distances);
+                    gyms.add(new GymListItem(jsonGetter.names[i], jsonGetter.addresses[i], distances[0]));
                 }
             }
-            //Button mapButton = (Button) v.findViewById(R.id.map_button);
-            //gymList = (ListView) v.findViewById(R.id.listGyms);
-            //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, nameLocation);
-            //gymList.setAdapter(adapter);
 
             gymAdapter = new GymListAdapter(getActivity(), R.layout.gym_list_item, gyms);
             gymList = (ListView) v.findViewById(R.id.listGyms);
-            View gymHeader = (View) getActivity().getLayoutInflater().inflate(R.layout.gym_list_header, null);
+            View gymHeader = getActivity().getLayoutInflater().inflate(R.layout.gym_list_header, null);
             gymList.addHeaderView(gymHeader);
             gymList.setAdapter(gymAdapter);
 

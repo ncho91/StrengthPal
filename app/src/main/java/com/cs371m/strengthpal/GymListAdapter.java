@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class GymListAdapter extends ArrayAdapter<GymListItem> {
@@ -24,30 +23,34 @@ public class GymListAdapter extends ArrayAdapter<GymListItem> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup group) {
         View row = convertView;
-        GymHolder gymHolder = null;
+        GymInfo gymInfo;
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
-            gymHolder = new GymHolder();
-            gymHolder.name = (TextView) row.findViewById(R.id.listName);
-            gymHolder.address = (TextView) row.findViewById(R.id.listAddress);
-            row.setTag(gymHolder);
-        } else {
-            gymHolder = (GymHolder) row.getTag();
+            row = inflater.inflate(layoutResourceId, group, false);
+            gymInfo = new GymInfo();
+            gymInfo.name = (TextView) row.findViewById(R.id.listName);
+            gymInfo.address = (TextView) row.findViewById(R.id.listAddress);
+            gymInfo.distance = (TextView) row.findViewById(R.id.listDistance);
+            row.setTag(gymInfo);
+        }
+        else {
+            gymInfo = (GymInfo) row.getTag();
         }
 
         GymListItem gymListItem = items.get(position);
-        gymHolder.name.setText(gymListItem.name);
-        gymHolder.address.setText(gymListItem.address);
+        gymInfo.name.setText(gymListItem.name);
+        gymInfo.address.setText(gymListItem.address);
+        gymInfo.distance.setText(gymListItem.distance);
 
         return row;
     }
 
-    static class GymHolder {
+    static class GymInfo {
         TextView name;
         TextView address;
+        TextView distance;
     }
 }
