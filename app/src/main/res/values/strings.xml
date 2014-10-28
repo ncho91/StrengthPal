@@ -54,4 +54,8 @@
     <string name="title_activity_new_workout">NewWorkoutActivity</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- strings for map search -->
+    <string name="button_map_view">View on the map</string>
+    <string name="button_list_view">View as a list</string>
+
 </resources>
