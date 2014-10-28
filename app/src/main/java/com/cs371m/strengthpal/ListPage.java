@@ -41,6 +41,9 @@ public class ListPage extends Fragment {
     ArrayList<String> nameLocation;
     ArrayAdapter<String> adapter;
 
+    ArrayList<GymListItem> gyms;
+    GymListAdapter gymAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,16 +80,25 @@ public class ListPage extends Fragment {
 
             nameLocation = new ArrayList<String>();
 
+            gyms = new ArrayList<GymListItem>();
+
             for (int i = 0; i < 25; i++) {
                 if (jsonGetter.coordinates[i][0] != 0) {
                     //map.addMarker(new MarkerOptions().position(new LatLng(jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1])).title(jsonGetter.names[i]).snippet(jsonGetter.addresses[i]));
                     nameLocation.add(jsonGetter.names[i] + " " + jsonGetter.addresses[i]);
+                    gyms.add(new GymListItem(jsonGetter.names[i], jsonGetter.addresses[i]));
                 }
             }
             //Button mapButton = (Button) v.findViewById(R.id.map_button);
+            //gymList = (ListView) v.findViewById(R.id.listGyms);
+            //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, nameLocation);
+            //gymList.setAdapter(adapter);
+
+            gymAdapter = new GymListAdapter(getActivity(), R.layout.gym_list_item, gyms);
             gymList = (ListView) v.findViewById(R.id.listGyms);
-            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, nameLocation);
-            gymList.setAdapter(adapter);
+            View gymHeader = (View) getActivity().getLayoutInflater().inflate(R.layout.gym_list_header, null);
+            gymList.addHeaderView(gymHeader);
+            gymList.setAdapter(gymAdapter);
 
         }
 

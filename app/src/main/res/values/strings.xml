@@ -57,5 +57,6 @@
     <!-- strings for map search -->
     <string name="button_map_view">View on the map</string>
     <string name="button_list_view">View as a list</string>
+    <string name="map_list_header">Nearby Gyms</string>
 
 </resources>
