@@ -13,6 +13,8 @@
         android:id="@+id/add_exercise_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/epic_button"
+        android:textColor="@drawable/white_button_text"
         android:text="Add Exercise"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
@@ -21,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:background="@drawable/epic_button"
+        android:textColor="@drawable/white_button_text"
         android:text="Save"/>
 
     <ScrollView
