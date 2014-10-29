@@ -2,7 +2,6 @@ package com.cs371m.strengthpal;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ public class WorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_workout, container, false);
         context = container.getContext();
-        final SharedPreferences prefs = context.getSharedPreferences("sp_prefs", context.MODE_PRIVATE);
 
         /*
             fill out workout entries with default values as per program specification
@@ -29,8 +27,6 @@ public class WorkoutFragment extends Fragment {
         final Button startingStrengthbutton = (Button) rootView.findViewById(R.id.starting_strength_button);
         startingStrengthbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("workout_plan", "Starting Strength").commit();
                 Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
             }
         });

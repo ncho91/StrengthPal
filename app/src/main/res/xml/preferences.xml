@@ -8,10 +8,12 @@
             android:title="Birthday"/>
         <EditTextPreference
             android:key="height"
-            android:title="Height"/>
+            android:title="Height"
+            android:inputType="number"/>
         <EditTextPreference
             android:key="weight"
-            android:title="Weight"/>
+            android:title="Weight"
+            android:inputType="number"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="App Settings"
@@ -19,7 +21,7 @@
         <SwitchPreference
             android:title="Push Notifications"
             android:defaultValue="false"
-            android:summary="Push notifications are not currently supported yet!"
+            android:summary="We'll let you know if you should be in the gym!"
             android:key="enable_push"/>
         <ListPreference
             android:title="Units"

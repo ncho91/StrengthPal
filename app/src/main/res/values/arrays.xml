@@ -4,4 +4,14 @@
         <item>Imperial</item>
         <item>Metric</item>
     </string-array>
+
+    <string-array name="arnold_quotes">
+        <item>It\'s simple, if it jiggles, it\'s fat.</item>
+        <item>The mind is the limit. As long as the mind can envision the fact that you can do something, you can do it, as long as you really believe 100 percent.</item>
+        <item>The worst thing I can be is the same as everybody else. I hate that.</item>
+        <item>Failure is not an option. Everyone has to succeed.</item>
+        <item>As long as I live, I will never forget that day 21 years ago when I raised my hand and took the oath of citizenship. Do you know how proud I was? I was so proud that I walked around with an American flag around my shoulders all day long.</item>
+        <item>Start wide, expand further, and never look back.</item>
+        <item>Training gives us an outlet for suppressed energies created by stress and thus tones the spirit just as exercise conditions the body.</item>
+    </string-array>
 </resources>

@@ -86,7 +86,8 @@
                 android:drawableRight="@drawable/ic_cup"
                 android:background="#ff2ecc71"
                 android:typeface="sans"
-                android:onClick="icons8site"/>
+                android:onClick="icons8site"
+                android:textColor="#ffffff"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -103,7 +104,8 @@
                 android:drawableRight="@drawable/ic_legal"
                 android:background="#bf5300"
                 android:typeface="sans"
-                android:onClick="gpsLink"/>
+                android:onClick="gpsLink"
+                android:textColor="#ffffff"/>
 
         </RelativeLayout>
 
