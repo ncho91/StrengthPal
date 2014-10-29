@@ -1,8 +1,10 @@
 package com.cs371m.strengthpal;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 public class NewWorkoutActivity extends Activity {
@@ -18,18 +21,32 @@ public class NewWorkoutActivity extends Activity {
     private EditText mEditText;
     private Button mButton;
     RoutineHelper routine;
-   // private WorkoutFragment workoutFragment = (WorkoutFragment);
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_workout);
-        Intent intent = getIntent();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("workout_prefs", MODE_PRIVATE);
+        String workout = sharedPreferences.getString("workout_plan", "none");
 
 
-        mEditText = (EditText) findViewById(R.id.enter_exercise_text);
-        mButton = (Button) findViewById(R.id.add_exercise_button);
-        add(this, mButton);
+        //checked the shared prefersces for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
+        if(workout.equals("")) {
+            Log.v("blah", "no workout selected");
+
+            mEditText = (EditText) findViewById(R.id.enter_exercise_text);
+            mButton = (Button) findViewById(R.id.add_exercise_button);
+            add(this, mButton);
+
+        }
+        else {
+            Log.v("blah", "workout.equals = " + workout);
+            Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
+            populateJournal(this, workout);
+           // add(this, mButton);
+        }
 
         //LinearLayout linearLayoutView = new LinearLayout(this);
 
@@ -65,14 +82,23 @@ public class NewWorkoutActivity extends Activity {
         });
     }
 
+    public void populateJournal(final Activity activity, String workout) {
+        String[] exercises = getResources().getStringArray(R.array.starting_strength_list_a);
 
-//    private EditText createNewLinearLayout(String text) {
-//        final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//        final EditText editTextView = new EditText(this);
-//        editTextView.setLayoutParams(lparams);
-//        editTextView.setHint("Exercise");
-//        return editTextView;
-//    }
+        final LinearLayout linearLayoutForm = (LinearLayout) activity.findViewById(R.id.main_linearlayout);
+        for(int i = 0; i < exercises.length; i++) {
+            final LinearLayout newView = (LinearLayout)activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail_2, null);
+            newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            EditText enterExerciseText = (EditText) newView.findViewById(R.id.enter_exercise_text_2);
+            EditText enterWeightText = (EditText) newView.findViewById(R.id.enter_weight_text_2);
+            EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text_2);
+            EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text_2);
+            enterExerciseText.setText(exercises[i], EditText.BufferType.EDITABLE);
+            linearLayoutForm.addView(newView);
+        }
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
