@@ -13,6 +13,6 @@
         android:textColor="#FFFFFF"
         android:padding="10dp"
         android:text="@string/map_list_header"
-        android:background="#C41411"/>
+        android:background="#BF5700"/>
 
 </LinearLayout>
