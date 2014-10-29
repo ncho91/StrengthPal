@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#D6D2C4">
 
     <FrameLayout
         android:layout_weight="1"
@@ -22,7 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/switchViewsButton"
-            android:text="@string/button_list_view"/>
+            android:text="@string/button_list_view"
+            android:background="@drawable/epic_button"
+            android:textColor="@drawable/white_button_text"/>
 
     </LinearLayout>
 

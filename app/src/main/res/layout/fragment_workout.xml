@@ -1,58 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#D6D2C4">
 
     <TextView
         android:id="@+id/workoutsLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:text="Workout Selector"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:text="Workout Selector"/>
 
-    <ImageView android:layout_width="wrap_content"
+    <ImageView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_workout"
-        android:layout_below="@+id/workoutsLabel"
-        android:layout_centerHorizontal="true"
         android:id="@+id/imageView2" />
 
-    <Button
-        android:id="@+id/starting_strength_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/starting_strength"
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/strong_lifts_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/strong_lifts"
-        android:layout_marginTop="150dp"
-        android:layout_centerHorizontal="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/wendler_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/wendler"
-        android:layout_marginTop="200dp"
-        android:layout_centerHorizontal="true"/>
+            <Button
+                android:id="@+id/starting_strength_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:textSize="30sp"
+                android:background="@drawable/epic_button"
+                android:textColor="@drawable/white_button_text"
+                android:text="@string/starting_strength"/>
 
-    <Button
-        android:id="@+id/phat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/phat"
-        android:layout_marginTop="250dp"
-        android:layout_centerHorizontal="true"/>
+            <Button
+                android:id="@+id/strong_lifts_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:textSize="30sp"
+                android:background="@drawable/epic_button"
+                android:textColor="@drawable/white_button_text"
+                android:text="@string/strong_lifts"/>
 
-</RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/wendler_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:textSize="30sp"
+                android:background="@drawable/epic_button"
+                android:textColor="@drawable/white_button_text"
+                android:text="@string/wendler"/>
+
+            <Button
+                android:id="@+id/phat_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:textSize="30sp"
+                android:background="@drawable/epic_button"
+                android:textColor="@drawable/white_button_text"
+                android:text="@string/phat"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

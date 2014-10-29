@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="starting_strength_list_a">
+    <string-array name="starting_strength_list_a">
         <item>@string/squat</item>
         <item>@string/bench_press</item>
         <item>@string/power_clean</item>
-    </array>
+    </string-array>
 
-    <array name="starting_strength_list_b">
+    <string-array name="starting_strength_list_b">
         <item>@string/squat</item>
         <item>@string/overhead_press</item>
         <item>@string/deadlift</item>
-    </array>
+    </string-array>
 </resources>

@@ -1,19 +1,31 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'mykey'
+            keyPassword 'Ncho91!'
+            storeFile file('/Users/Cho/my-release-key.keystore')
+            storePassword 'Ncho91!'
+        }
+    }
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
     defaultConfig {
-        applicationId "com.cs371m.strengthpal"
+        applicationId 'com.cs371m.strengthpal'
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 4
-        versionName "0.4.1"
+        versionCode 1
+        versionName '1.0'
     }
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {
