@@ -34,7 +34,7 @@ public class MyActivity extends Activity {
     private CharSequence mTitle;
     private String[] mDrawerTitleLabels;
     private TypedArray mDrawerIcons;
-
+    int x;
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
