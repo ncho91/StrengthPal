@@ -56,4 +56,9 @@
     <string name="about_info">Created with love, sweat, tears by Tyler Corley, Noah Cho, and Even Hvatum. Copyright 2014 All Rights Reserved.
     It\'s not perfect yet so please don\'t hurt us. </string>
 
+    <!-- strings for map search -->
+    <string name="button_map_view">View on the map</string>
+    <string name="button_list_view">View as a list</string>
+    <string name="map_list_header">Nearby Gyms</string>
+
 </resources>
