@@ -1,6 +1,7 @@
 package com.cs371m.strengthpal;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,17 +17,18 @@ public class NewWorkoutActivity extends Activity {
     //private LinearLayout mLayout;
     private EditText mEditText;
     private Button mButton;
-
+    RoutineHelper routine;
+   // private WorkoutFragment workoutFragment = (WorkoutFragment);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_workout);
+        Intent intent = getIntent();
 
 
         mEditText = (EditText) findViewById(R.id.enter_exercise_text);
         mButton = (Button) findViewById(R.id.add_exercise_button);
-
         add(this, mButton);
 
         //LinearLayout linearLayoutView = new LinearLayout(this);
