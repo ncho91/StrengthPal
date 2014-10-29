@@ -15,6 +15,7 @@ import android.widget.Toast;
  */
 public class WorkoutFragment extends Fragment {
 
+
     public WorkoutFragment(){}
     private Context context;
     @Override
@@ -32,6 +33,7 @@ public class WorkoutFragment extends Fragment {
                 SharedPreferences.Editor ed = prefs.edit();
                 ed.putString("workout_plan", "Starting Strength").commit();
                 Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
+
             }
         });
 
