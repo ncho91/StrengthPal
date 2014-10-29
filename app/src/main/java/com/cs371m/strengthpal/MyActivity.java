@@ -1,24 +1,25 @@
 package com.cs371m.strengthpal;
 
-import com.cs371m.strengthpal.model.NavDrawerItem;
-import com.cs371m.strengthpal.adapter.NavDrawerListAdapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.util.Log;
+
+import com.cs371m.strengthpal.adapter.NavDrawerListAdapter;
+import com.cs371m.strengthpal.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
@@ -38,12 +39,12 @@ public class MyActivity extends Activity {
     private NavDrawerListAdapter adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        // get this shit ready
         mTitle = mDrawerTitle = getTitle();
         mDrawerTitleLabels = getResources().getStringArray(R.array.drawer_options);
         mDrawerIcons = getResources().obtainTypedArray(R.array.drawer_icons);
@@ -205,5 +206,15 @@ public class MyActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void icons8site(View view) {
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://icons8.com/"));
+        startActivity(viewIntent);
+    }
+
+    public void gpsLink(View view) {
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://developer.android.com/legal.html"));
+        startActivity(viewIntent);
     }
 }

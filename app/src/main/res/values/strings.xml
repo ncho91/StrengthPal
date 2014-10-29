@@ -53,5 +53,7 @@
     <string name="leg_press">Leg press</string>
     <string name="title_activity_new_workout">NewWorkoutActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="about_info">Created with love, sweat, tears by Tyler Corley, Noah Cho, and Even Hvatum. Copyright 2014 All Rights Reserved.
+    It\'s not perfect yet so please don\'t hurt us. </string>
 
 </resources>

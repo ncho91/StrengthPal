@@ -1,15 +1,17 @@
 package com.cs371m.strengthpal.adapter;
 
-import com.cs371m.strengthpal.model.NavDrawerItem;
-import com.cs371m.strengthpal.R;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.cs371m.strengthpal.R;
+import com.cs371m.strengthpal.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
@@ -19,10 +21,12 @@ import java.util.ArrayList;
 public class NavDrawerListAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
+    private Typeface tf;
 
     public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
         this.context = context;
         this.navDrawerItems = navDrawerItems;
+        tf = Typeface.createFromAsset(context.getAssets(), "fonts/alegreya-sans.thin.ttf");
     }
 
     @Override
@@ -54,6 +58,9 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
         imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
         txtTitle.setText(navDrawerItems.get(position).getTitle());
+        txtTitle.setTypeface(tf);
+
+
 
         // displaying count
         // check whether it set visible or not
