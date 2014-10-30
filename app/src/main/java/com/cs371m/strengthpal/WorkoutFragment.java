@@ -25,7 +25,8 @@ public class WorkoutFragment extends Fragment {
         context = container.getContext();
 
         final SharedPreferences prefs = getActivity().getSharedPreferences("workout_prefs", Context.MODE_PRIVATE);
-
+        SharedPreferences.Editor ed = prefs.edit();
+        ed.putString("workout_plan", "none").commit();
         /*
             fill out workout entries with default values as per program specification
          */
