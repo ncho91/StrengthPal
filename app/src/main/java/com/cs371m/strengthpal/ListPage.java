@@ -1,5 +1,6 @@
 package com.cs371m.strengthpal;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.location.Location;
@@ -9,7 +10,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,6 +36,8 @@ public class ListPage extends Fragment {
     ListView gymList;
     ArrayList<GymListItem> gyms;
     GymListAdapter gymAdapter;
+    getJSON jsonGetter;
+    String gymDistances[];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +63,7 @@ public class ListPage extends Fragment {
                     "&types=gym" +
                     "&key=AIzaSyAgAA0SJSFBydGuJpbJ8LlnUPoQx9CM4PU";
 
-            getJSON jsonGetter = new getJSON();
+            jsonGetter = new getJSON();
             jsonGetter.execute(query);
 
             try {
@@ -70,11 +75,16 @@ public class ListPage extends Fragment {
             gyms = new ArrayList<GymListItem>();
 
             float distances[] = new float[3];
+            gymDistances = new String[25];
 
             for (int i = 0; i < 25; i++) {
                 if (jsonGetter.coordinates[i][0] != 0) {
                     Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1], distances);
                     gyms.add(new GymListItem(jsonGetter.names[i], jsonGetter.addresses[i], distances[0]));
+                    double dist = (double) distances[0];
+                    dist = dist * 0.000621371;
+                    dist = (double) Math.round(dist * 100) / 100;
+                    gymDistances[i] = Double.toString(dist) + " mi";
                 }
             }
 
@@ -84,6 +94,22 @@ public class ListPage extends Fragment {
             gymList.addHeaderView(gymHeader);
             gymList.setAdapter(gymAdapter);
 
+            gymList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Dialog dialog = new Dialog(getActivity());
+                    LayoutInflater inflater  = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View v = inflater.inflate(R.layout.gym_popup, null);
+                    TextView popupName = (TextView) v.findViewById(R.id.gymPopupName);
+                    popupName.setText(jsonGetter.names[position - 1]);
+                    TextView popupAddress = (TextView) v.findViewById(R.id.gymPopupAddress);
+                    popupAddress.setText(jsonGetter.addresses[position - 1]);
+                    TextView popupDistance = (TextView) v.findViewById(R.id.gymPopupDistance);
+                    popupDistance.setText(gymDistances[position - 1]);
+                    dialog.setContentView(v);
+                    dialog.show();
+                }
+            });
         }
 
         return v;

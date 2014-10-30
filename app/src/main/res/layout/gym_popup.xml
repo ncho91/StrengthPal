@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D6D2C4">
+
+    <ImageView
+        android:id="@+id/gymPopupImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/sample_gym_image"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:weightSum="40">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="9"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/gymPopupName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_margin="5dp"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/gymPopupDistance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/gymPopupAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="11"
+            android:layout_margin="5dp"
+            android:gravity="start"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="10">
+
+            <TextView
+                android:id="@+id/gymPopupPhone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="123-456-7890"/>
+
+            <Button
+                android:id="@+id/gymPopupButtonCall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_margin="5dp"
+                android:background="@drawable/epic_button"
+                android:textColor="@drawable/white_button_text"
+                android:text="Call"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/gymPopupButtonDirections"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:layout_margin="5dp"
+            android:background="@drawable/epic_button"
+            android:textColor="@drawable/white_button_text"
+            android:text="Get Directions"/>
+
+    </LinearLayout>
+</LinearLayout>
