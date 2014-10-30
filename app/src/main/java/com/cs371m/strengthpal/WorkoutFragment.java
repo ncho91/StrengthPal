@@ -2,6 +2,7 @@ package com.cs371m.strengthpal;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,26 +23,24 @@ public class WorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_workout, container, false);
         context = container.getContext();
-<<<<<<< HEAD
-=======
 
         final SharedPreferences prefs = getActivity().getSharedPreferences("workout_prefs", Context.MODE_PRIVATE);
-
->>>>>>> b380813ea13bdb9528c3ca0bdca3699e6d73b91f
 
         /*
             fill out workout entries with default values as per program specification
          */
-        final Button startingStrengthbutton = (Button) rootView.findViewById(R.id.starting_strength_button);
-        startingStrengthbutton.setOnClickListener(new View.OnClickListener() {
+        final Button startingStrengthButton = (Button) rootView.findViewById(R.id.starting_strength_button);
+        startingStrengthButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SharedPreferences.Editor ed = prefs.edit();
+                ed.putString("workout_plan", "Starting Strength").commit();
                 Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        final Button strongLiftsbutton = (Button) rootView.findViewById(R.id.strong_lifts_button);
-        strongLiftsbutton.setOnClickListener(new View.OnClickListener() {
+        final Button strongLiftsButton = (Button) rootView.findViewById(R.id.strong_lifts_button);
+        strongLiftsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor ed = prefs.edit();
                 ed.putString("workout_plan", "Strong Lifts").commit();

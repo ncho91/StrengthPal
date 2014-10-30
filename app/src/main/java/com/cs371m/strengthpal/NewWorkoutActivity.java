@@ -31,22 +31,21 @@ public class NewWorkoutActivity extends Activity {
         SharedPreferences sharedPreferences = getSharedPreferences("workout_prefs", MODE_PRIVATE);
         String workout = sharedPreferences.getString("workout_plan", "none");
 
+        mEditText = (EditText) findViewById(R.id.enter_exercise_text);
+        mButton = (Button) findViewById(R.id.add_exercise_button);
 
-        //checked the shared prefersces for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
-        if(workout.equals("")) {
-            Log.v("blah", "no workout selected");
-
-            mEditText = (EditText) findViewById(R.id.enter_exercise_text);
-            mButton = (Button) findViewById(R.id.add_exercise_button);
-            add(this, mButton);
-
-        }
-        else {
+        //checked the shared preferences for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
+        if (workout.equals("Starting Strength")){
             Log.v("blah", "workout.equals = " + workout);
             Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
             populateJournal(this, workout);
-           // add(this, mButton);
+            add(this, mButton);
         }
+        else {
+            add(this, mButton);
+        }
+
+
 
         //LinearLayout linearLayoutView = new LinearLayout(this);
 
