@@ -43,12 +43,20 @@ public class GymFragment extends Fragment implements View.OnClickListener {
         if (onMap) {
             onMap = false;
             switchView.setText("View on Map");
-            fragmentManager.beginTransaction().replace(R.id.content_frame, listFragment).commit();
+            fragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out)
+                    .replace(R.id.content_frame, listFragment)
+                    .commit();
         }
         else {
             onMap = true;
             switchView.setText("List Results");
-            fragmentManager.beginTransaction().replace(R.id.content_frame, mapFragment).commit();
+            fragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.animator.card_flip_left_in, R.animator.card_flip_left_out)
+                    .replace(R.id.content_frame, mapFragment)
+                    .commit();
         }
     }
 

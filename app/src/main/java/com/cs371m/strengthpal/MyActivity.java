@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cs371m.strengthpal.adapter.NavDrawerListAdapter;
 import com.cs371m.strengthpal.model.NavDrawerItem;
@@ -37,6 +38,9 @@ public class MyActivity extends Activity {
     int x;
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
+    // This is used as a way to make sure that we display the drawer only on the first
+    // back button press
+    private boolean mShouldDisplayToast;
 
 
 
@@ -103,6 +107,8 @@ public class MyActivity extends Activity {
         if (savedInstanceState == null) {
             displayView(0);
         }
+
+        mShouldDisplayToast = true;
     }
 
 
@@ -174,6 +180,7 @@ public class MyActivity extends Activity {
                 break;
         }
 
+        mShouldDisplayToast = true;
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -216,5 +223,29 @@ public class MyActivity extends Activity {
     public void gpsLink(View view) {
         Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://developer.android.com/legal.html"));
         startActivity(viewIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        if(mShouldDisplayToast) {
+//            mDrawerLayout.openDrawer(mDrawerList);
+//            mShouldDisplayToast = !mShouldDisplayToast;
+//        }
+//        else {
+//            super.onBackPressed();
+//        }
+        if(!mDrawerLayout.isDrawerOpen(mDrawerList)) {
+            mDrawerLayout.openDrawer(mDrawerList);
+            mShouldDisplayToast = true;
+        }
+        else {
+            if(mShouldDisplayToast) {
+                Toast.makeText(this, "Press back once again to exit.", Toast.LENGTH_SHORT).show();
+                mShouldDisplayToast = !mShouldDisplayToast;
+            }
+            else {
+                super.onBackPressed();
+            }
+        }
     }
 }

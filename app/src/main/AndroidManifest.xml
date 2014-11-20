@@ -26,7 +26,8 @@
         android:theme="@style/CustomActionBar" >
         <activity
             android:name=".MyActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +44,8 @@
 
         <activity
             android:name=".NewWorkoutActivity"
-            android:label="@string/title_activity_new_workout" >
+            android:label="@string/title_activity_new_workout"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
