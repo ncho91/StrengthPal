@@ -20,6 +20,7 @@ public class NewWorkoutActivity extends Activity {
     //private LinearLayout mLayout;
     private EditText mEditText;
     private Button mButton;
+    private Button saveButton;
     RoutineHelper routine;
     private Context context = this;
 
@@ -28,36 +29,39 @@ public class NewWorkoutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_workout);
 
+        WorkoutDB workoutDb = new WorkoutDB(this);
+
         SharedPreferences sharedPreferences = getSharedPreferences("workout_prefs", MODE_PRIVATE);
         String workout = sharedPreferences.getString("workout_plan", "none");
 
         mEditText = (EditText) findViewById(R.id.enter_exercise_text);
         mButton = (Button) findViewById(R.id.add_exercise_button);
-        //checked the shared prefersces for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
+        saveButton = (Button) findViewById(R.id.save_button);
+
+        //checked the shared preferences for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
         if(workout.equals("none")) {
             Log.v("blah", "no workout selected");
-            add(this, mButton);
+            add(this, mButton, saveButton);
         }
         else if (workout.equals("Starting Strength")){
             Log.v("blah", "workout.equals = " + workout);
             Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
             populateJournal(this, workout);
-            add(this, mButton);
+            add(this, mButton, saveButton);
         }
 
-
-
-        //LinearLayout linearLayoutView = new LinearLayout(this);
+        add(this, mButton, saveButton);
 
     }
 
-    public static void add(final Activity activity, Button button) {
+
+    public static void add(final Activity activity, Button button, Button saveButton) {
         final LinearLayout linearLayoutForm = (LinearLayout) activity.findViewById(R.id.main_linearlayout);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout newView = (LinearLayout)activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
+                final LinearLayout newView = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
 
                 newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -77,8 +81,17 @@ public class NewWorkoutActivity extends Activity {
 
                 linearLayoutForm.addView(newView);
 
+
             }
         });
+
+
+//        //insert data into SQLite database whenever "save" is pressed
+//        saveButton.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v) {
+//                saveWorkout();
+//            }
+//        });
     }
 
     public void populateJournal(final Activity activity, String workout) {
