@@ -41,6 +41,7 @@ public class MyActivity extends Activity {
     // This is used as a way to make sure that we display the drawer only on the first
     // back button press
     private boolean mShouldDisplayToast;
+    private WorkoutDB db;
 
 
 
@@ -103,6 +104,7 @@ public class MyActivity extends Activity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+        db = new WorkoutDB(this);
 
         if (savedInstanceState == null) {
             displayView(0);

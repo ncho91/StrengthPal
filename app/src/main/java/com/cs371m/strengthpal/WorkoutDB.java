@@ -30,7 +30,7 @@ public class WorkoutDB extends SQLiteOpenHelper {
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table workout_history " +
-            "(id integer primary key, date text, exercise text, weight text, reps text, sets text)";
+            "(id integer primary key, date datetime, exercise text, weight text, reps text, sets text)";
     public WorkoutDB(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -65,10 +65,10 @@ public class WorkoutDB extends SQLiteOpenHelper {
 //    }
 
     //add a new workout
-    void addWorkout(WorkoutDBEntry workout) {
+    public void addWorkout(WorkoutDBEntry workout) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("date", workout.getDate());
+        values.put("date", workout.getDate());//do something for datetime conversion
         values.put("exercise", workout.getExercise());
         values.put("weight", workout.getWeight());
         values.put("reps", workout.getReps());

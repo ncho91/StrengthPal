@@ -5,18 +5,8 @@
     android:orientation="vertical"
     android:background="#D6D2C4">
 
-    <TextView
-        android:id="@+id/historyLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="30sp"
-        android:text="Workout History View"/>
 
-    <ImageView android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_history"
-        android:id="@+id/imageView"/>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,6 +22,14 @@
             android:background="@drawable/epic_button"
             android:textColor="@drawable/white_button_text"
             android:text="@string/new_workout"/>
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/new_workout_button"></TableLayout>
 
     </RelativeLayout>
 

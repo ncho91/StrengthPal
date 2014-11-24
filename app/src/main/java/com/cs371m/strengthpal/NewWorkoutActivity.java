@@ -29,7 +29,7 @@ public class NewWorkoutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_workout);
 
-        WorkoutDB workoutDb = new WorkoutDB(this);
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("workout_prefs", MODE_PRIVATE);
         String workout = sharedPreferences.getString("workout_plan", "none");
@@ -42,6 +42,8 @@ public class NewWorkoutActivity extends Activity {
         if(workout.equals("none")) {
             Log.v("blah", "no workout selected");
             add(this, mButton, saveButton);
+
+
         }
         else if (workout.equals("Starting Strength")){
             Log.v("blah", "workout.equals = " + workout);
@@ -51,35 +53,47 @@ public class NewWorkoutActivity extends Activity {
         }
 
         add(this, mButton, saveButton);
+        //add blank row
+        final LinearLayout linearLayoutForm = (LinearLayout) this.findViewById(R.id.main_linearlayout);
+        addRow(this, linearLayoutForm, false);
 
     }
 
+    private void addRow(Activity activity, final LinearLayout linearLayoutForm, boolean shouldShowRemove) {
+        final LinearLayout newView = (shouldShowRemove) ? (LinearLayout) activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail, null)
+                :  (LinearLayout) activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail_2, null);
 
-    public static void add(final Activity activity, Button button, Button saveButton) {
+        newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        EditText enterExerciseText = (EditText) newView.findViewById(R.id.enter_exercise_text);
+        EditText enterWeightText = (EditText) newView.findViewById(R.id.enter_weight_text);
+        EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text);
+        EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text);
+
+        if(shouldShowRemove) {
+            Button mButtonRemove = (Button) newView.findViewById(R.id.remove_exercise_button);
+
+            mButtonRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    linearLayoutForm.removeView(newView);
+                }
+            });
+        }
+
+
+
+        linearLayoutForm.addView(newView);
+    }
+
+
+    public void add(final Activity activity, Button button, Button saveButton) {
         final LinearLayout linearLayoutForm = (LinearLayout) activity.findViewById(R.id.main_linearlayout);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout newView = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
-
-                newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-                EditText enterExerciseText = (EditText) newView.findViewById(R.id.enter_exercise_text);
-                EditText enterWeightText = (EditText) newView.findViewById(R.id.enter_weight_text);
-                EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text);
-                EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text);
-
-                Button mButtonRemove = (Button) newView.findViewById(R.id.remove_exercise_button);
-
-                mButtonRemove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        linearLayoutForm.removeView(newView);
-                    }
-                });
-
-                linearLayoutForm.addView(newView);
+              addRow(activity, linearLayoutForm, true);
 
 
             }
@@ -129,6 +143,12 @@ public class NewWorkoutActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //function for button to save to database
+    public boolean saveWorkout(View view) {
+        Toast.makeText(this, "The Butôn works",Toast.LENGTH_SHORT).show();
+        return true;
     }
 
 }

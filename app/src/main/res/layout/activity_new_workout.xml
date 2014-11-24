@@ -25,7 +25,8 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/epic_button"
         android:textColor="@drawable/white_button_text"
-        android:text="Save"/>
+        android:text="Save"
+        android:onClick="saveWorkout"/>
 
     <ScrollView
         android:id="@+id/new_exercise_scrollview"
