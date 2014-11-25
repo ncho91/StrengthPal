@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="60dp"
     android:background="@drawable/list_selector">
 
     <TextView
@@ -10,11 +10,10 @@
         android:layout_height="match_parent"
         android:text="Sample"
         android:textSize="25sp"
-        android:textStyle="bold"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_item_title"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"/>
 
-</RelativeLayout>
+</LinearLayout>
