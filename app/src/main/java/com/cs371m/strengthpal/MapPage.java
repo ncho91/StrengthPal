@@ -76,7 +76,9 @@ public class MapPage extends Fragment {
 
             for (int i = 0; i < 25; i++) {
                 if (jsonGetter.coordinates[i][0] != 0) {
-                    map.addMarker(new MarkerOptions().position(new LatLng(jsonGetter.coordinates[i][0], jsonGetter.coordinates[i][1])).title(jsonGetter.names[i]).snippet(jsonGetter.addresses[i]));
+                    map.addMarker(new MarkerOptions().position(new LatLng(jsonGetter.coordinates[i][0],
+                            jsonGetter.coordinates[i][1])).title(jsonGetter.names[i])
+                            .snippet(jsonGetter.addresses[i]));
                 }
             }
         }
