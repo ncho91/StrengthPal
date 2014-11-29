@@ -9,21 +9,20 @@
         android:id="@+id/gymPopupImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2"
+        android:layout_gravity="start"
         android:layout_margin="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1"
-        android:weightSum="40">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="9"
             android:weightSum="10">
 
             <TextView
@@ -33,7 +32,7 @@
                 android:layout_weight="3"
                 android:gravity="center_vertical"
                 android:layout_margin="5dp"
-                android:textSize="20sp"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/gymPopupDistance"
@@ -47,19 +46,65 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/gymPopupAddress"
+            android:id="@+id/gymPopupMonday"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="11"
-            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
             android:gravity="start"
-            android:textSize="18sp"/>
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/gymPopupTuesday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/gymPopupWednesday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/gymPopupThursday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/gymPopupFriday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/gymPopupSaturday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/gymPopupSunday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="10">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/gymPopupPhone"
@@ -67,13 +112,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="18sp"
-                android:text="123-456-7890"/>
+                android:textSize="18sp"/>
 
             <Button
                 android:id="@+id/gymPopupButtonCall"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_margin="5dp"
                 android:background="@drawable/epic_button"
@@ -82,11 +126,18 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/gymPopupAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="start"
+            android:textSize="18sp"/>
+
         <Button
             android:id="@+id/gymPopupButtonDirections"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/epic_button"
             android:textColor="@drawable/white_button_text"

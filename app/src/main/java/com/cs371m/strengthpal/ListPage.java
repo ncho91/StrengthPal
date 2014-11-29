@@ -3,10 +3,12 @@ package com.cs371m.strengthpal;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,7 +51,17 @@ public class ListPage extends Fragment {
     GymListAdapter gymAdapter;
     getJSON jsonGetter;
     String gymDistances[];
+    String phoneStr;
     ImageView gymPopupImage;
+    TextView gymPopupPhone;
+    TextView gymPopupAddress;
+    TextView gymPopupMonday;
+    TextView gymPopupTuesday;
+    TextView gymPopupWednesday;
+    TextView gymPopupThursday;
+    TextView gymPopupFriday;
+    TextView gymPopupSaturday;
+    TextView gymPopupSunday;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,10 +140,45 @@ public class ListPage extends Fragment {
                     }
                     TextView popupName = (TextView) v.findViewById(R.id.gymPopupName);
                     popupName.setText(jsonGetter.names[position - 1]);
-                    TextView popupAddress = (TextView) v.findViewById(R.id.gymPopupAddress);
-                    popupAddress.setText(jsonGetter.addresses[position - 1]);
+                    gymPopupAddress = (TextView) v.findViewById(R.id.gymPopupAddress);
                     TextView popupDistance = (TextView) v.findViewById(R.id.gymPopupDistance);
                     popupDistance.setText(gymDistances[position - 1]);
+                    gymPopupPhone = (TextView) v.findViewById(R.id.gymPopupPhone);
+                    getDetails details = new getDetails();
+                    String detailsRequest = "https://maps.googleapis.com/maps/api/place/details/json?" +
+                            "placeid=" + jsonGetter.ids[position - 1] +
+                            "&key=AIzaSyAgAA0SJSFBydGuJpbJ8LlnUPoQx9CM4PU";
+                    gymPopupMonday = (TextView) v.findViewById(R.id.gymPopupMonday);
+                    gymPopupTuesday = (TextView) v.findViewById(R.id.gymPopupTuesday);
+                    gymPopupWednesday = (TextView) v.findViewById(R.id.gymPopupWednesday);
+                    gymPopupThursday = (TextView) v.findViewById(R.id.gymPopupThursday);
+                    gymPopupFriday = (TextView) v.findViewById(R.id.gymPopupFriday);
+                    gymPopupSaturday = (TextView) v.findViewById(R.id.gymPopupSaturday);
+                    gymPopupSunday = (TextView) v.findViewById(R.id.gymPopupSunday);
+                    details.execute(detailsRequest);
+
+                    Button callButton = (Button) v.findViewById(R.id.gymPopupButtonCall);
+                    callButton.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            String uri = phoneStr.trim();
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(Uri.parse(uri));
+                            startActivity(callIntent);
+                        }
+                    });
+
+                    final String destination = "http://maps.google.com/maps" +
+                            "?daddr=" + jsonGetter.coordinates[position - 1][0] + "," + jsonGetter.coordinates[position - 1][1];
+
+                    final Button directionButton = (Button) v.findViewById(R.id.gymPopupButtonDirections);
+                    directionButton.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent directionIntent = new Intent(Intent.ACTION_VIEW);
+                            directionIntent.setData(Uri.parse(destination));
+                            startActivity(directionIntent);
+                        }
+                    });
+
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(v);
                     dialog.show();
@@ -147,6 +195,7 @@ public class ListPage extends Fragment {
         String[] names = new String[25];
         String[] addresses = new String[25];
         String[] images = new String[25];
+        String[] ids = new String[25];
 
         @Override
         protected String doInBackground(String... params) {
@@ -190,6 +239,7 @@ public class ListPage extends Fragment {
                         coordinates[i][1] = item.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
                         names[i] = item.getString("name");
                         addresses[i] = item.getString("vicinity");
+                        ids[i] = item.getString("place_id");
                         try {
                             images[i] = item.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
                         }
@@ -245,6 +295,92 @@ public class ListPage extends Fragment {
         @Override
         protected void onPostExecute(Bitmap image) {
             gymPopupImage.setImageBitmap(image);
+        }
+    }
+
+    private class getDetails extends AsyncTask<String, Integer, String> {
+
+        String hours[] = new String[7];
+        String address;
+
+        @Override
+        protected String doInBackground(String... params) {
+            String phone = "None";
+            String strJson = null;
+            try {
+                DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(params[0]);
+                HttpResponse httpResponse = defaultHttpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                strJson = EntityUtils.toString(httpEntity);
+            }
+            catch (Exception e) {
+                // do nothing
+            }
+
+
+            JSONObject json = null;
+            try {
+                json = new JSONObject(strJson);
+            }
+            catch (Exception e) {
+                // do nothing
+            }
+
+            JSONObject result = null;
+            if (json != null) {
+                try {
+                    result = json.getJSONObject("result");
+                } catch (Exception e) {
+                    // do nothin
+                }
+            }
+
+            if (result != null) {
+                try {
+                    phone = result.getString("formatted_phone_number");
+                }
+                catch (Exception e) {
+                    phone = "Number Unavailable";
+                }
+                try {
+                    address = result.getString("formatted_address");
+                }
+                catch (Exception e) {
+                    address = "Address Unavailable";
+                }
+                try {
+                    JSONArray openingHours = result.getJSONObject("opening_hours").getJSONArray("weekday_text");
+                    for (int i = 0; i < 7; i++) {
+                        hours[i] = openingHours.getString(i);
+                    }
+                }
+                catch (Exception e) {
+                    hours[0] = "Monday: hours unavailable";
+                    hours[1] = "Tuesday: hours unavailable";
+                    hours[2] = "Wednesday: hours unavailable";
+                    hours[3] = "Thursday: hours unavailable";
+                    hours[4] = "Friday: hours unavailable";
+                    hours[5] = "Saturday: hours unavailable";
+                    hours[6] = "Sunday: hours unavailable";
+                }
+            }
+
+            return phone;
+        }
+
+        @Override
+        protected void onPostExecute(String phone) {
+            phoneStr = "tel:" + phone;
+            gymPopupPhone.setText(phone);
+            gymPopupAddress.setText(address);
+            gymPopupMonday.setText(hours[0]);
+            gymPopupTuesday.setText(hours[1]);
+            gymPopupWednesday.setText(hours[2]);
+            gymPopupThursday.setText(hours[3]);
+            gymPopupFriday.setText(hours[4]);
+            gymPopupSaturday.setText(hours[5]);
+            gymPopupSunday.setText(hours[6]);
         }
     }
 }
