@@ -68,7 +68,7 @@ public class WorkoutDB extends SQLiteOpenHelper {
     public void addWorkout(WorkoutDBEntry workout) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("date", workout.getDate());//do something for datetime conversion
+        values.put("date", workout.getDate().toString());//do something for datetime conversion
         values.put("exercise", workout.getExercise());
         values.put("weight", workout.getWeight());
         values.put("reps", workout.getReps());

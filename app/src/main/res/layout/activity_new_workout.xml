@@ -82,7 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/divider2">
 
         <LinearLayout
             android:id="@+id/main_linearlayout"
@@ -93,12 +94,18 @@
         </LinearLayout>
 
     </ScrollView>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#bf5300"
+        android:layout_above="@+id/new_workout_row_detail_2"/>
     <LinearLayout
         android:id="@+id/new_workout_row_detail_2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
         >
 
         <EditText
@@ -111,9 +118,11 @@
             android:width="100dp"
             android:scrollHorizontally="true"
             android:ellipsize="end"
-            android:layout_weight="1"
+            android:layout_weight="64.38"
             android:hint="@string/enter_exercise"
-            android:imeOptions="actionNext"/>
+            android:inputType="textNoSuggestions|textVisiblePassword"
+            android:imeOptions="actionNext"
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/enter_weight_text_2"
@@ -129,7 +138,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:hint="@string/weight"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext"
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/enter_reps_text_2"
@@ -145,7 +155,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:hint="@string/reps"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext"
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/enter_sets_text_2"
@@ -160,7 +171,19 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:hint="@string/sets"
-            android:imeOptions="actionDone"/>
+            android:imeActionLabel="Add"
+            android:imeOptions="actionDone"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/add_exercise_button"
+            android:layout_width="48dp"
+            android:layout_height="27dp"
+            android:textSize="16sp"
+            android:background="@drawable/epic_button"
+            android:textColor="@drawable/white_button_text"
+            android:text="+"
+            android:onClick="addEntryAction"/>
 
 
     </LinearLayout>

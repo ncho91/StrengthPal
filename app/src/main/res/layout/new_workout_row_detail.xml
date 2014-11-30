@@ -67,15 +67,16 @@
         android:hint="@string/sets"/>
     <Button
         android:id="@+id/remove_exercise_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="27dp"
         android:layout_toRightOf="@id/enter_sets_text"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:inputType="number"
         android:background="@drawable/epic_button"
         android:textColor="@drawable/white_button_text"
         android:layout_marginBottom="10dp"
-        android:text="X"/>
+        android:text="X"
+        android:onClick="removeEntry"/>
 
 
 </LinearLayout>

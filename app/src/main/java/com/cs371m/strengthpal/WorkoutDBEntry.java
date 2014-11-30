@@ -1,5 +1,7 @@
 package com.cs371m.strengthpal;
 
+import java.util.Date;
+
 /**
  * Created by Cho on 11/23/14.
  */
@@ -9,14 +11,14 @@ package com.cs371m.strengthpal;
  */
 public class WorkoutDBEntry {
     private long id;
-    private String date;
+    private Date date;
     private String exercise;
-    private double weight;
+    private int weight;
     private int reps;
     private int sets;
 
     public WorkoutDBEntry(){}
-    public WorkoutDBEntry(long id, String date, String exercise, double weight, int reps, int sets) {
+    public WorkoutDBEntry(long id, Date date, String exercise, int weight, int reps, int sets) {
         this.id = id;
         this.date = date;
         this.exercise = exercise;
@@ -45,15 +47,15 @@ public class WorkoutDBEntry {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -71,5 +73,14 @@ public class WorkoutDBEntry {
 
     public void setSets(int sets){
         this.sets = sets;
+    }
+
+    public String toString() {
+        return "{" + "id: " + id + "\nDate: " + date.toString() + "\nExercise: " + exercise + "\nWeight: " + weight + "\nReps: " + reps + "\nSets: " + sets + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 }
