@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Exercise"
+        android:id="@+id/exercise_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        android:layout_marginRight="17dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Weight"
+        android:id="@+id/weight_entry"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/exercise_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Reps"
+        android:id="@+id/reps_entry"
+        android:layout_toRightOf="@+id/weight_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sets"
+        android:id="@+id/sets_entry"
+        android:layout_toRightOf="@+id/reps_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Remove"
+        android:id="@+id/remove_entry"
+        android:layout_toRightOf="@+id/sets_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#bf5300"
+        android:layout_below="@+id/exercise_entry"/>
+
+</RelativeLayout>

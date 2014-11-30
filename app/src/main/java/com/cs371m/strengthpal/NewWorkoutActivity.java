@@ -1,47 +1,75 @@
 package com.cs371m.strengthpal;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cs371m.strengthpal.model.HistoryItem;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class NewWorkoutActivity extends Activity {
 
     //private LinearLayout mLayout;
-    private EditText mEditText;
+    private EditText mLastEntry;
     private Button mButton;
     private Button saveButton;
     RoutineHelper routine;
     private Context context = this;
+    private Date date;
+    private ArrayList<HistoryItem> historyItems;
+    private ArrayList<WorkoutDBEntry> workoutDBEntries;
+    private int workout_id;
+    SQLiteDatabase db;
+    WorkoutDB wdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_workout);
 
-
+        // ActionBar formatting
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        date = new Date();
+        getActionBar().setTitle("Workout: " + sdf.format(date));
+        // For removing the icon so that we have some more room to work with
+        // http://stackoverflow.com/a/17485385
+        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
         SharedPreferences sharedPreferences = getSharedPreferences("workout_prefs", MODE_PRIVATE);
         String workout = sharedPreferences.getString("workout_plan", "none");
+        workout_id = sharedPreferences.getInt("running_workout_id", 0);
 
-        mEditText = (EditText) findViewById(R.id.enter_exercise_text);
-        mButton = (Button) findViewById(R.id.add_exercise_button);
-        saveButton = (Button) findViewById(R.id.save_button);
+        //mEditText = (EditText) findViewById(R.id.enter_exercise_text);
+        //mButton = (Button) findViewById(R.id.add_exercise_button);
+        //saveButton = (Button) findViewById(R.id.save_button);
 
         //checked the shared preferences for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
         if(workout.equals("none")) {
             Log.v("blah", "no workout selected");
-            add(this, mButton, saveButton);
+            //add(mButton);
 
 
         }
@@ -49,19 +77,91 @@ public class NewWorkoutActivity extends Activity {
             Log.v("blah", "workout.equals = " + workout);
             Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
             populateJournal(this, workout);
-            add(this, mButton, saveButton);
+            //add(mButton);
         }
 
-        add(this, mButton, saveButton);
+        //add(mButton);
         //add blank row
-        final LinearLayout linearLayoutForm = (LinearLayout) this.findViewById(R.id.main_linearlayout);
-        addRow(this, linearLayoutForm, false);
+        //final LinearLayout linearLayoutForm = (LinearLayout) findViewById(R.id.main_linearlayout);
+        //addRow(linearLayoutForm, false);
+
+        //set listener for the done action on the keyboard
+        mLastEntry = (EditText) findViewById(R.id.enter_sets_text_2);
+
+        historyItems = new ArrayList<HistoryItem>();
+        workoutDBEntries = new ArrayList<WorkoutDBEntry>();
+
+        mLastEntry.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                // On successful entry
+                if(i == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    addEntryAction(null);
+                }
+                return true;
+            }
+
+
+        });
+
+        wdb = new WorkoutDB(this);
+        Log.v("Database", "This should've created the db by now");
+        // this is not picking up the correct information here
+        db = wdb.getWritableDatabase();
 
     }
 
-    private void addRow(Activity activity, final LinearLayout linearLayoutForm, boolean shouldShowRemove) {
-        final LinearLayout newView = (shouldShowRemove) ? (LinearLayout) activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail, null)
-                :  (LinearLayout) activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail_2, null);
+    public void addEntryAction(View view) {
+        // fine. We'll extract the values
+        EditText exercise = (EditText)findViewById(R.id.enter_exercise_text_2);
+        EditText weight = (EditText)findViewById(R.id.enter_weight_text_2);
+        EditText reps = (EditText)findViewById(R.id.enter_reps_text_2);
+        EditText sets = (EditText)findViewById(R.id.enter_sets_text_2);
+//        //create history list item
+//        String stuff = exercise.getText().toString() + "; " +
+//                weight.getText().toString() + "; " +
+//                reps.getText().toString() + "; " +
+//                sets.getText().toString();
+//        //populate it
+//        historyItems.add(new HistoryItem(stuff));
+//        workoutDBEntries.add(new WorkoutDBEntry(index,date,
+//                exercise.getText().toString(),
+//                Double.valueOf(weight.getText().toString()),
+//                Integer.getInteger(reps.getText().toString()),
+//                Integer.getInteger(sets.getText().toString())));
+//        index++;
+//        for (WorkoutDBEntry e: workoutDBEntries){
+//            Log.v("Exercises", e.toString());
+//        }
+        //display in the scrollview
+//        final LinearLayout newHistoryItem = (LinearLayout) getLayoutInflater().inflate(R.layout.history_list_item, null);
+//        newHistoryItem.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//        ((TextView)newHistoryItem.findViewById(R.id.stuff)).setText(stuff);
+//        ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
+        if(exercise.getText().toString().matches("") || weight.getText().toString().matches("") || reps.getText().toString().matches("") || sets.getText().toString().matches("")) {
+            Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            final LinearLayout newHistoryItem = (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
+            ((EditText) newHistoryItem.findViewById(R.id.enter_exercise_text)).setText(exercise.getText().toString());
+            ((EditText) newHistoryItem.findViewById(R.id.enter_weight_text)).setText(weight.getText().toString());
+            ((EditText) newHistoryItem.findViewById(R.id.enter_reps_text)).setText(reps.getText().toString());
+            ((EditText) newHistoryItem.findViewById(R.id.enter_sets_text)).setText(sets.getText().toString());
+            ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
+
+            // clear out old entries
+            ((EditText) findViewById(R.id.enter_exercise_text_2)).setText("");
+            ((EditText) findViewById(R.id.enter_sets_text_2)).setText("");
+            ((EditText) findViewById(R.id.enter_weight_text_2)).setText("");
+            ((EditText) findViewById(R.id.enter_reps_text_2)).setText("");
+            // set the focus to the first EditText
+            findViewById(R.id.enter_exercise_text_2).requestFocus();
+        }
+    }
+
+    private void addRow(final LinearLayout linearLayoutForm, boolean shouldShowRemove) {
+        final LinearLayout newView = (shouldShowRemove) ? (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail, null)
+                :  (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail_2, null);
 
         newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -84,28 +184,6 @@ public class NewWorkoutActivity extends Activity {
 
 
         linearLayoutForm.addView(newView);
-    }
-
-
-    public void add(final Activity activity, Button button, Button saveButton) {
-        final LinearLayout linearLayoutForm = (LinearLayout) activity.findViewById(R.id.main_linearlayout);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              addRow(activity, linearLayoutForm, true);
-
-
-            }
-        });
-
-
-//        //insert data into SQLite database whenever "save" is pressed
-//        saveButton.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v) {
-//                saveWorkout();
-//            }
-//        });
     }
 
     public void populateJournal(final Activity activity, String workout) {
@@ -138,17 +216,96 @@ public class NewWorkoutActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.add_exercise:
+                addRow((LinearLayout) findViewById(R.id.main_linearlayout), true);
+                break;
+            case R.id.save_workout:
+                saveWorkout();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     //function for button to save to database
-    public boolean saveWorkout(View view) {
+    public void saveWorkout() {
         Toast.makeText(this, "The Butôn works",Toast.LENGTH_SHORT).show();
-        return true;
+        LinearLayout main = (LinearLayout)findViewById(R.id.main_linearlayout);
+        int childCount = main.getChildCount();
+        Log.v("AAAH", "No. of children: " + childCount);
+        for (int i = 0; i < childCount; i++) {
+            LinearLayout e = (LinearLayout)main.getChildAt(i);
+            EditText exercise = (EditText)e.findViewById(R.id.enter_exercise_text);
+            EditText weight = (EditText)e.findViewById(R.id.enter_weight_text);
+            EditText reps = (EditText)e.findViewById(R.id.enter_reps_text);
+            EditText sets = (EditText)e.findViewById(R.id.enter_sets_text);
+            Log.v("Real Monsters", "E:" + exercise.getText().toString() + "||W: " + weight.getText().toString() + "||R: " + reps.getText().toString() + "||S: " + sets.getText().toString());
+            workoutDBEntries.add(new WorkoutDBEntry(workout_id,date,
+                    exercise.getText().toString(),
+                    Integer.parseInt(weight.getText().toString()),
+                    Integer.parseInt(reps.getText().toString()),
+                    Integer.parseInt(sets.getText().toString())));
+        }
+        Toast.makeText(this, "We're saving " + workoutDBEntries.size() + " Exercises in this workout.", Toast.LENGTH_SHORT).show();
+        for (WorkoutDBEntry e: workoutDBEntries){
+            Log.v("Exercises", e.toString());
+        }
+        //increment the workout_id
+        getSharedPreferences("workout_prefs", MODE_PRIVATE)
+                .edit()
+                .putInt("running_workout_id", ++workout_id)
+                .commit();
+
+        //GOD SAVE THE QUEEN
+        addWorkout();
+
+        //Is this the way back to history?
+        NavUtils.navigateUpFromSameTask(this);
+    }
+
+    public void removeEntry(View view) {
+        //view.getParent() refers to the linear layout that holds the line
+        ((LinearLayout)findViewById(R.id.main_linearlayout)).removeView((View) view.getParent());
+        //Also remove from the arraylist
+    }
+
+    public void addWorkout() {
+        if(workoutDBEntries.isEmpty()) {
+            Log.v("Database", "No values to insert");
+        }
+        else {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //get the id and the date from the first item
+            long id = workoutDBEntries.get(0).getId();
+            Date date = workoutDBEntries.get(0).getDate();
+            try {
+                db.beginTransaction();
+                for (WorkoutDBEntry e : workoutDBEntries) {
+                    ContentValues values = new ContentValues();
+                    values.put("id", id);
+                    values.put("date", sdf.format(date));
+                    values.put("exercise", e.getExercise());
+                    values.put("weight", e.getWeight());
+                    values.put("reps", e.getReps());
+                    values.put("sets", e.getSets());
+                    db.insert(wdb.WORKOUT_TABLE_NAME, null, values);
+                }
+                db.setTransactionSuccessful();
+                Log.v("Database", "It works!");
+            }
+            catch (SQLiteException e) {
+                Log.v("Database", "Error inserting into database: " + e);
+            }
+            finally {
+                db.endTransaction();
+            }
+        }
+
+
     }
 
 }

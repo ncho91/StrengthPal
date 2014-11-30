@@ -17,7 +17,7 @@ import android.util.Log;
 public class WorkoutDB extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "WorkoutDB.db";
-    public static final String WORKOUT_TABLE_NAME = "workouts";
+    public static final String WORKOUT_TABLE_NAME = "workout_history";
     public static final String WORKOUT_COLUMN_ID = "_id";
     public static final String WORKOUT_COLUMN_DATE = "date";
     public static final String WORKOUT_COLUMN_EXERCISE = "exercise";
@@ -30,7 +30,7 @@ public class WorkoutDB extends SQLiteOpenHelper {
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table workout_history " +
-            "(id integer primary key, date datetime, exercise text, weight text, reps text, sets text)";
+            "(id integer, date datetime, exercise text, weight text, reps text, sets text)";
     public WorkoutDB(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,8 +38,11 @@ public class WorkoutDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
+        Log.v("Database", "In OnCreate");
         database.execSQL(DATABASE_CREATE);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -65,10 +68,10 @@ public class WorkoutDB extends SQLiteOpenHelper {
 //    }
 
     //add a new workout
-    public void addWorkout(WorkoutDBEntry workout) {
+    public void _addWorkout(WorkoutDBEntry workout) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("date", workout.getDate());//do something for datetime conversion
+        values.put("date", workout.getDate().toString());//do something for datetime conversion
         values.put("exercise", workout.getExercise());
         values.put("weight", workout.getWeight());
         values.put("reps", workout.getReps());
@@ -77,4 +80,6 @@ public class WorkoutDB extends SQLiteOpenHelper {
         db.insert(WORKOUT_TABLE_NAME, null, values);
         db.close();
     }
+
+
 }
