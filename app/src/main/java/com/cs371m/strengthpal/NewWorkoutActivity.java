@@ -1,8 +1,11 @@
 package com.cs371m.strengthpal;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -38,6 +41,8 @@ public class NewWorkoutActivity extends Activity {
     private ArrayList<HistoryItem> historyItems;
     private ArrayList<WorkoutDBEntry> workoutDBEntries;
     private int workout_id;
+    SQLiteDatabase db;
+    WorkoutDB wdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,11 @@ public class NewWorkoutActivity extends Activity {
 
         });
 
+        wdb = new WorkoutDB(this);
+        Log.v("Database", "This should've created the db by now");
+        // this is not picking up the correct information here
+        db = wdb.getWritableDatabase();
+
     }
 
     public void addEntryAction(View view) {
@@ -128,20 +138,25 @@ public class NewWorkoutActivity extends Activity {
 //        newHistoryItem.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 //        ((TextView)newHistoryItem.findViewById(R.id.stuff)).setText(stuff);
 //        ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
-        final LinearLayout newHistoryItem = (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
-        ((EditText)newHistoryItem.findViewById(R.id.enter_exercise_text)).setText(exercise.getText().toString());
-        ((EditText)newHistoryItem.findViewById(R.id.enter_weight_text)).setText(weight.getText().toString());
-        ((EditText)newHistoryItem.findViewById(R.id.enter_reps_text)).setText(reps.getText().toString());
-        ((EditText)newHistoryItem.findViewById(R.id.enter_sets_text)).setText(sets.getText().toString());
-        ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
+        if(exercise.getText().toString().matches("") || weight.getText().toString().matches("") || reps.getText().toString().matches("") || sets.getText().toString().matches("")) {
+            Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            final LinearLayout newHistoryItem = (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
+            ((EditText) newHistoryItem.findViewById(R.id.enter_exercise_text)).setText(exercise.getText().toString());
+            ((EditText) newHistoryItem.findViewById(R.id.enter_weight_text)).setText(weight.getText().toString());
+            ((EditText) newHistoryItem.findViewById(R.id.enter_reps_text)).setText(reps.getText().toString());
+            ((EditText) newHistoryItem.findViewById(R.id.enter_sets_text)).setText(sets.getText().toString());
+            ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
 
-        // clear out old entries
-        ((EditText)findViewById(R.id.enter_exercise_text_2)).setText("");
-        ((EditText)findViewById(R.id.enter_sets_text_2)).setText("");
-        ((EditText)findViewById(R.id.enter_weight_text_2)).setText("");
-        ((EditText)findViewById(R.id.enter_reps_text_2)).setText("");
-        // set the focus to the first EditText
-        findViewById(R.id.enter_exercise_text_2).requestFocus();
+            // clear out old entries
+            ((EditText) findViewById(R.id.enter_exercise_text_2)).setText("");
+            ((EditText) findViewById(R.id.enter_sets_text_2)).setText("");
+            ((EditText) findViewById(R.id.enter_weight_text_2)).setText("");
+            ((EditText) findViewById(R.id.enter_reps_text_2)).setText("");
+            // set the focus to the first EditText
+            findViewById(R.id.enter_exercise_text_2).requestFocus();
+        }
     }
 
     private void addRow(final LinearLayout linearLayoutForm, boolean shouldShowRemove) {
@@ -243,12 +258,54 @@ public class NewWorkoutActivity extends Activity {
                 .edit()
                 .putInt("running_workout_id", ++workout_id)
                 .commit();
+
+        //GOD SAVE THE QUEEN
+        addWorkout();
+
+        //Is this the way back to history?
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     public void removeEntry(View view) {
         //view.getParent() refers to the linear layout that holds the line
         ((LinearLayout)findViewById(R.id.main_linearlayout)).removeView((View) view.getParent());
         //Also remove from the arraylist
+    }
+
+    public void addWorkout() {
+        if(workoutDBEntries.isEmpty()) {
+            Log.v("Database", "No values to insert");
+        }
+        else {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //get the id and the date from the first item
+            long id = workoutDBEntries.get(0).getId();
+            Date date = workoutDBEntries.get(0).getDate();
+            try {
+                db.beginTransaction();
+                for (WorkoutDBEntry e : workoutDBEntries) {
+                    ContentValues values = new ContentValues();
+                    values.put("id", id);
+                    values.put("date", sdf.format(date));
+                    values.put("exercise", e.getExercise());
+                    values.put("weight", e.getWeight());
+                    values.put("reps", e.getReps());
+                    values.put("sets", e.getSets());
+                    db.insert(wdb.WORKOUT_TABLE_NAME, null, values);
+                }
+                db.setTransactionSuccessful();
+                Log.v("Database", "It works!");
+            }
+            catch (SQLiteException e) {
+                Log.v("Database", "Error inserting into database: " + e);
+            }
+            finally {
+                db.endTransaction();
+            }
+        }
+
+
     }
 
 }
