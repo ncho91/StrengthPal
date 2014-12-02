@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="back_bicep">
+        <item>@string/squat</item>
+        <item>@string/bench_press</item>
+        <item>@string/power_clean</item>
+    </string-array>
+</resources>

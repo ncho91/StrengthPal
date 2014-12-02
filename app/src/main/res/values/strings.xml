@@ -44,6 +44,12 @@
     <string name="deadlift">Deadlift</string>
     <string name="barbell_row">Barbell row</string>
     <string name="chin_up">Chin up</string>
+    <string name="db_rows">Dumbbell rows</string>
+    <string name="bb_curls">Barbell curls</string>
+    <string name="lat_pulldown">Lat pulldown</string>
+    <string name="seated_row">Seated cable row</string>
+    <string name="db_curls">Dumbbell curl</string>
+    <string name="hammer_curl">Hammer curls</string>
     <string name="dips">Dips</string>
     <string name="leg_raises">Hanging leg raise</string>
     <string name="flat_db_bench">Flat dumbbell bench press</string>
