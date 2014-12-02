@@ -5,19 +5,6 @@
     android:orientation="vertical"
     android:background="#D6D2C4">
 
-    <TextView
-        android:id="@+id/workoutsLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="30sp"
-        android:text="Workout Selector"/>
-
-    <ImageView android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_workout"
-        android:id="@+id/imageView2" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"

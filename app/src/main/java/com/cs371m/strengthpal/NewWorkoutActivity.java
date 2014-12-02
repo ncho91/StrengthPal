@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,18 +30,14 @@ import java.util.Date;
 
 public class NewWorkoutActivity extends Activity {
 
-    //private LinearLayout mLayout;
     private EditText mLastEntry;
-    private Button mButton;
-    private Button saveButton;
-    RoutineHelper routine;
     private Context context = this;
     private Date date;
     private ArrayList<HistoryItem> historyItems;
     private ArrayList<WorkoutDBEntry> workoutDBEntries;
     private int workout_id;
-    SQLiteDatabase db;
-    WorkoutDB wdb;
+    private SQLiteDatabase db;
+    private WorkoutDB wdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +57,9 @@ public class NewWorkoutActivity extends Activity {
         String workout = sharedPreferences.getString("workout_plan", "none");
         workout_id = sharedPreferences.getInt("running_workout_id", 0);
 
-        //mEditText = (EditText) findViewById(R.id.enter_exercise_text);
-        //mButton = (Button) findViewById(R.id.add_exercise_button);
-        //saveButton = (Button) findViewById(R.id.save_button);
-
         //checked the shared preferences for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
         if(workout.equals("none")) {
             Log.v("blah", "no workout selected");
-            //add(mButton);
-
-
         }
         else if (workout.equals("Starting Strength")){
             Log.v("blah", "workout.equals = " + workout);
@@ -79,11 +67,6 @@ public class NewWorkoutActivity extends Activity {
             populateJournal(this, workout);
             //add(mButton);
         }
-
-        //add(mButton);
-        //add blank row
-        //final LinearLayout linearLayoutForm = (LinearLayout) findViewById(R.id.main_linearlayout);
-        //addRow(linearLayoutForm, false);
 
         //set listener for the done action on the keyboard
         mLastEntry = (EditText) findViewById(R.id.enter_sets_text_2);
@@ -112,36 +95,16 @@ public class NewWorkoutActivity extends Activity {
     }
 
     public void addEntryAction(View view) {
-        // fine. We'll extract the values
         EditText exercise = (EditText)findViewById(R.id.enter_exercise_text_2);
         EditText weight = (EditText)findViewById(R.id.enter_weight_text_2);
         EditText reps = (EditText)findViewById(R.id.enter_reps_text_2);
         EditText sets = (EditText)findViewById(R.id.enter_sets_text_2);
-//        //create history list item
-//        String stuff = exercise.getText().toString() + "; " +
-//                weight.getText().toString() + "; " +
-//                reps.getText().toString() + "; " +
-//                sets.getText().toString();
-//        //populate it
-//        historyItems.add(new HistoryItem(stuff));
-//        workoutDBEntries.add(new WorkoutDBEntry(index,date,
-//                exercise.getText().toString(),
-//                Double.valueOf(weight.getText().toString()),
-//                Integer.getInteger(reps.getText().toString()),
-//                Integer.getInteger(sets.getText().toString())));
-//        index++;
-//        for (WorkoutDBEntry e: workoutDBEntries){
-//            Log.v("Exercises", e.toString());
-//        }
-        //display in the scrollview
-//        final LinearLayout newHistoryItem = (LinearLayout) getLayoutInflater().inflate(R.layout.history_list_item, null);
-//        newHistoryItem.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//        ((TextView)newHistoryItem.findViewById(R.id.stuff)).setText(stuff);
-//        ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
+
         if(exercise.getText().toString().matches("") || weight.getText().toString().matches("") || reps.getText().toString().matches("") || sets.getText().toString().matches("")) {
             Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
         }
         else {
+            // Create the new entry in the table
             final LinearLayout newHistoryItem = (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
             ((EditText) newHistoryItem.findViewById(R.id.enter_exercise_text)).setText(exercise.getText().toString());
             ((EditText) newHistoryItem.findViewById(R.id.enter_weight_text)).setText(weight.getText().toString());
@@ -150,42 +113,16 @@ public class NewWorkoutActivity extends Activity {
             ((LinearLayout) findViewById(R.id.main_linearlayout)).addView(newHistoryItem);
 
             // clear out old entries
-            ((EditText) findViewById(R.id.enter_exercise_text_2)).setText("");
-            ((EditText) findViewById(R.id.enter_sets_text_2)).setText("");
-            ((EditText) findViewById(R.id.enter_weight_text_2)).setText("");
-            ((EditText) findViewById(R.id.enter_reps_text_2)).setText("");
+            exercise.setText("");
+            weight.setText("");
+            reps.setText("");
+            sets.setText("");
             // set the focus to the first EditText
-            findViewById(R.id.enter_exercise_text_2).requestFocus();
+            exercise.requestFocus();
         }
     }
 
-    private void addRow(final LinearLayout linearLayoutForm, boolean shouldShowRemove) {
-        final LinearLayout newView = (shouldShowRemove) ? (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail, null)
-                :  (LinearLayout) getLayoutInflater().inflate(R.layout.new_workout_row_detail_2, null);
-
-        newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        EditText enterExerciseText = (EditText) newView.findViewById(R.id.enter_exercise_text);
-        EditText enterWeightText = (EditText) newView.findViewById(R.id.enter_weight_text);
-        EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text);
-        EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text);
-
-        if(shouldShowRemove) {
-            Button mButtonRemove = (Button) newView.findViewById(R.id.remove_exercise_button);
-
-            mButtonRemove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    linearLayoutForm.removeView(newView);
-                }
-            });
-        }
-
-
-
-        linearLayoutForm.addView(newView);
-    }
-
+    // NEEDS NEW IMPLEMENTATION
     public void populateJournal(final Activity activity, String workout) {
         String[] exercises = getResources().getStringArray(R.array.starting_strength_list_a);
 
@@ -220,9 +157,6 @@ public class NewWorkoutActivity extends Activity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
-            case R.id.add_exercise:
-                addRow((LinearLayout) findViewById(R.id.main_linearlayout), true);
-                break;
             case R.id.save_workout:
                 saveWorkout();
                 break;
@@ -233,22 +167,19 @@ public class NewWorkoutActivity extends Activity {
     //function for button to save to database
     public void saveWorkout() {
         LinearLayout main = (LinearLayout)findViewById(R.id.main_linearlayout);
-        int childCount = main.getChildCount();
-        Log.v("AAAH", "No. of children: " + childCount);
-        for (int i = 0; i < childCount; i++) {
+        for (int i = 0; i < main.getChildCount(); i++) {
             LinearLayout e = (LinearLayout)main.getChildAt(i);
             EditText exercise = (EditText)e.findViewById(R.id.enter_exercise_text);
             EditText weight = (EditText)e.findViewById(R.id.enter_weight_text);
             EditText reps = (EditText)e.findViewById(R.id.enter_reps_text);
             EditText sets = (EditText)e.findViewById(R.id.enter_sets_text);
-            Log.v("Real Monsters", "E:" + exercise.getText().toString() + "||W: " + weight.getText().toString() + "||R: " + reps.getText().toString() + "||S: " + sets.getText().toString());
             workoutDBEntries.add(new WorkoutDBEntry(workout_id,date,
                     exercise.getText().toString(),
                     Integer.parseInt(weight.getText().toString()),
                     Integer.parseInt(reps.getText().toString()),
                     Integer.parseInt(sets.getText().toString())));
         }
-        Toast.makeText(this, "Workout with " + workoutDBEntries.size() + " exercise" + ((workoutDBEntries.size() > 1) ?"s":"") + " saved!.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Workout with " + workoutDBEntries.size() + " exercise" + ((workoutDBEntries.size() > 1) ?"s":"") + " saved!", Toast.LENGTH_SHORT).show();
         for (WorkoutDBEntry e: workoutDBEntries){
             Log.v("Exercises", e.toString());
         }

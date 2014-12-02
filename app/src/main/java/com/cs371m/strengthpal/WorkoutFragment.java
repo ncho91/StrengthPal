@@ -30,6 +30,7 @@ public class WorkoutFragment extends Fragment {
         /*
             fill out workout entries with default values as per program specification
          */
+
         final Button startingStrengthButton = (Button) rootView.findViewById(R.id.starting_strength_button);
         startingStrengthButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

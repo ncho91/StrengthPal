@@ -28,6 +28,8 @@
             android:key="units"
             android:entries="@array/units"
             android:entryValues="@array/units"/>
-
+        <Preference
+            android:key="btnClearDB"
+            android:title="Clear the Database!™"/>
     </PreferenceCategory>
 </PreferenceScreen>
