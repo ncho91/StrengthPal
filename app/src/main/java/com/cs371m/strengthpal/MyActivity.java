@@ -43,7 +43,7 @@ public class MyActivity extends Activity {
     private boolean mShouldDisplayToast;
     private WorkoutDB db;
 
-
+    private int currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,7 @@ public class MyActivity extends Activity {
         db = new WorkoutDB(this);
 
         if (savedInstanceState == null) {
+            currentFragment = 0;
             displayView(0);
         }
 
@@ -128,7 +129,7 @@ public class MyActivity extends Activity {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         //follow this pattern. we won't have a websearch but we might have options pertaining to
         //each fragment. maybe a switch() here?
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -139,8 +140,6 @@ public class MyActivity extends Activity {
             return true;
         }
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -151,7 +150,13 @@ public class MyActivity extends Activity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            displayView(position);
+            if (position == currentFragment) {
+                mDrawerLayout.closeDrawer(mDrawerList);
+            }
+            else {
+                currentFragment = position;
+                displayView(position);
+            }
         }
     }
 
