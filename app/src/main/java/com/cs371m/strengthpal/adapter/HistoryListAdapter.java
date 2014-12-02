@@ -53,6 +53,9 @@ public class HistoryListAdapter extends BaseAdapter {
         TextView count = (TextView) convertView.findViewById(R.id.num_exercises);
         count.setText("" + historyItems.get(position).getCount());
 
+        TextView label = (TextView) convertView.findViewById(R.id.label);
+        label.setText((historyItems.get(position).getCount() > 1) ? "exercises":"exercise");
+
         return convertView;
     }
 }

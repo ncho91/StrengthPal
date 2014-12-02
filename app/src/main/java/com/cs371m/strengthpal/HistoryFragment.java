@@ -1,5 +1,6 @@
 package com.cs371m.strengthpal;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
@@ -14,16 +15,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs371m.strengthpal.adapter.HistoryListAdapter;
-import com.cs371m.strengthpal.adapter.WorkoutDetailListAdapter;
 import com.cs371m.strengthpal.model.HistoryItem;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -127,15 +125,27 @@ public class HistoryFragment extends Fragment {
             Dialog dialog = new Dialog(getActivity());
             LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(R.layout.popup_workout_detail, null);
-            TextView date_label = (TextView) v.findViewById(R.id.date);
-            date_label.setText(mHistoryItems.get(i).getDate());
             // Run the query on the history id to get the exercises
             ArrayList<WorkoutDBEntry> items = getExercises(mHistoryItems.get(i).getId());
 
             // iterate through the items and add them to the ListView
-            ListView lv = (ListView) v.findViewById(R.id.exercises);
-            lv.setAdapter(new WorkoutDetailListAdapter(getActivity(), items));
+            TableLayout tl = (TableLayout) v.findViewById(R.id.put_stuff_here);
+//            tl.setAdapter(new WorkoutDetailListAdapter(getActivity(), items));
+            for(WorkoutDBEntry e: items) {
+                LayoutInflater mInflater = (LayoutInflater)getActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                View childView = mInflater.inflate(R.layout.history_detail_item, null);
+                TextView ex = (TextView) childView.findViewById(R.id.exercise);
+                ex.setText(e.getExercise());
+                TextView wt = (TextView) childView.findViewById(R.id.weight);
+                wt.setText("" + e.getWeight());
+                TextView rep = (TextView) childView.findViewById(R.id.reps);
+                rep.setText("" + e.getReps());
+                TextView set = (TextView) childView.findViewById(R.id.sets);
+                set.setText("" + e.getSets());
 
+                tl.addView(childView);
+            }
+            dialog.setTitle(mHistoryItems.get(i).getDate());
             dialog.setContentView(v);
             dialog.show();
         }

@@ -229,20 +229,18 @@ public class MyActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-//        if(mShouldDisplayToast) {
-//            mDrawerLayout.openDrawer(mDrawerList);
-//            mShouldDisplayToast = !mShouldDisplayToast;
-//        }
-//        else {
-//            super.onBackPressed();
-//        }
-        if(!mDrawerLayout.isDrawerOpen(mDrawerList)) {
+
+        if(!mShouldDisplayToast) {
+            super.onBackPressed();
+        }
+        else if(!mDrawerLayout.isDrawerOpen(mDrawerList)) {
             mDrawerLayout.openDrawer(mDrawerList);
             mShouldDisplayToast = true;
         }
         else {
             if(mShouldDisplayToast) {
                 Toast.makeText(this, "Press back once again to exit.", Toast.LENGTH_SHORT).show();
+                mDrawerLayout.closeDrawer(mDrawerList);
                 mShouldDisplayToast = !mShouldDisplayToast;
             }
             else {

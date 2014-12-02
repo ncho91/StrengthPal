@@ -232,7 +232,6 @@ public class NewWorkoutActivity extends Activity {
 
     //function for button to save to database
     public void saveWorkout() {
-        Toast.makeText(this, "The Butôn works",Toast.LENGTH_SHORT).show();
         LinearLayout main = (LinearLayout)findViewById(R.id.main_linearlayout);
         int childCount = main.getChildCount();
         Log.v("AAAH", "No. of children: " + childCount);
@@ -249,7 +248,7 @@ public class NewWorkoutActivity extends Activity {
                     Integer.parseInt(reps.getText().toString()),
                     Integer.parseInt(sets.getText().toString())));
         }
-        Toast.makeText(this, "We're saving " + workoutDBEntries.size() + " Exercises in this workout.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Workout with " + workoutDBEntries.size() + " exercise" + ((workoutDBEntries.size() > 1) ?"s":"") + " saved!.", Toast.LENGTH_SHORT).show();
         for (WorkoutDBEntry e: workoutDBEntries){
             Log.v("Exercises", e.toString());
         }

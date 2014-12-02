@@ -1,91 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
-    <TextView
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:text="Date"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/date"
-        android:id="@+id/title">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Exercise"
-            android:id="@+id/exercise_entry"
-            android:padding="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold|italic"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Weight"
-            android:id="@+id/weight_entry"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/exercise_entry"
-            android:layout_toEndOf="@id/exercise_entry"
-            android:padding="10dp"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold|italic"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Reps"
-            android:id="@+id/reps_entry"
-            android:layout_toRightOf="@+id/weight_entry"
-            android:layout_toEndOf="@id/weight_entry"
-            android:padding="10dp"
-            android:layout_marginRight="20dp"
-            android:textStyle="bold|italic"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Sets"
-            android:id="@+id/sets_entry"
-            android:layout_toEndOf="@+id/reps_entry"
-            android:padding="10dp"
-            android:textStyle="bold|italic"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/reps_entry" />
-
-        </RelativeLayout>
-
-
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:background="#bf5300"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/title"/>
-
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/divider"
-        android:id="@+id/exercises"/>
+        android:id="@+id/detail_table"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:text="Exercise"
+                android:layout_weight="3"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"/>
+            <TextView
+                android:text="Weight"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"/>
+            <TextView
+                android:text="Reps"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"/>
+            <TextView
+                android:text="Sets"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"/>
+        </TableRow>
+        <View
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:background="#bf5300"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/title"/>
+        <ScrollView>
+            <TableLayout
+                android:id="@+id/put_stuff_here"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                    
+            </TableLayout>
+        </ScrollView>
+    </TableLayout>
 
 </RelativeLayout>
