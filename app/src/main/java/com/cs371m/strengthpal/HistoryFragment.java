@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cs371m.strengthpal.adapter.HistoryListAdapter;
 import com.cs371m.strengthpal.model.HistoryItem;
@@ -52,14 +51,6 @@ public class HistoryFragment extends Fragment {
             }
         });
 
-        final Button showCountButton = (Button) rootView.findViewById(R.id.show_count);
-        showCountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                workoutCount();
-            }
-        });
-
         wdb = new WorkoutDB(getActivity());
         db = wdb.getReadableDatabase();
 
@@ -77,15 +68,6 @@ public class HistoryFragment extends Fragment {
         }
 
         return rootView;
-    }
-
-    public void workoutCount() {
-        String countQuery = "SELECT  DISTINCT(id) FROM " + wdb.WORKOUT_TABLE_NAME;
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        // return count
-        Toast.makeText(getActivity(), "" + cursor.getCount(), Toast.LENGTH_SHORT).show();
-        cursor.close();
     }
 
     private ArrayList<HistoryItem> getAllWorkouts() {

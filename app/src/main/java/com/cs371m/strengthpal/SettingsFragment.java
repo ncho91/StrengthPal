@@ -1,7 +1,11 @@
 package com.cs371m.strengthpal;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -9,6 +13,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 /**
  * Created by Tyler_iMac on 10/23/14.
@@ -99,6 +104,16 @@ public class SettingsFragment extends PreferenceFragment implements DatePickerDi
                 return true;
             }
         });
+
+        final Preference clearDB = (Preference) findPreference("btnClearDB");
+        clearDB.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                clearDatabase();
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -122,6 +137,29 @@ public class SettingsFragment extends PreferenceFragment implements DatePickerDi
         Log.v("dasd", ""+month+"-"+day+"-"+year);
         new DatePickerDialog(getActivity(),this, year, month, day).show();
 
+    }
+
+    private void clearDatabase() {
+        new AlertDialog.Builder(getActivity())
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            WorkoutDB wdb = new WorkoutDB(getActivity());
+                            SQLiteDatabase db = wdb.getWritableDatabase();
+                            String sql = "DELETE FROM " + wdb.WORKOUT_TABLE_NAME + " WHERE id >= 0";
+                            db.execSQL(sql);
+                            Toast.makeText(getActivity(), "Database successfully cleared!", Toast.LENGTH_SHORT).show();
+                        }
+                        catch (SQLiteException e) {
+                            Toast.makeText(getActivity(), "Error with deleting all entries: " + e, Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                })
+                .setNegativeButton("Or nah", null)
+                .setMessage("This will clear all entries in the database. Proceed?")
+                .show();
     }
 
 
