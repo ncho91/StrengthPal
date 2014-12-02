@@ -3,7 +3,9 @@
     android:id="@+id/new_workout_row_detail_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:gravity="bottom"
+    >
 
     <EditText
         android:id="@+id/enter_exercise_text_2"
@@ -16,7 +18,8 @@
         android:scrollHorizontally="true"
         android:ellipsize="end"
         android:layout_weight="1"
-        android:hint="@string/enter_exercise"/>
+        android:hint="@string/enter_exercise"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/enter_weight_text_2"
@@ -31,7 +34,8 @@
         android:layout_weight="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:hint="@string/weight"/>
+        android:hint="@string/weight"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/enter_reps_text_2"
@@ -46,7 +50,8 @@
         android:layout_weight="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:hint="@string/reps"/>
+        android:hint="@string/reps"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/enter_sets_text_2"

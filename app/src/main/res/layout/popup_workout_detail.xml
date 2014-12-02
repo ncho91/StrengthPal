@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_table"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:text="Exercise"
+                android:layout_weight="3"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"/>
+            <TextView
+                android:text="Weight"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"/>
+            <TextView
+                android:text="Reps"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"/>
+            <TextView
+                android:text="Sets"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"/>
+        </TableRow>
+        <View
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:background="#bf5300"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/title"/>
+        <ScrollView>
+            <TableLayout
+                android:id="@+id/put_stuff_here"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                    
+            </TableLayout>
+        </ScrollView>
+    </TableLayout>
+
+</RelativeLayout>

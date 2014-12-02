@@ -45,7 +45,8 @@
         <activity
             android:name=".NewWorkoutActivity"
             android:label="@string/title_activity_new_workout"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MyActivity">
         </activity>
     </application>
 

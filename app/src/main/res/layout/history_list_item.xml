@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="60dp"
     android:background="@drawable/list_selector">
 
     <TextView
-        android:id="@+id/stuff"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Sample"
+        android:text="Sample Date"
         android:textSize="25sp"
-        android:textStyle="bold"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_item_title"
         android:gravity="center_vertical"
+        android:textStyle="italic"
         android:paddingLeft="10dp"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:id="@+id/num_exercises"
+            android:textSize="25sp"
+            android:text="x"
+            android:gravity="end"
+            android:textStyle="italic|bold"
+            android:paddingRight="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="exercises"
+            android:gravity="end"
+            android:id="@+id/label"
+            android:textSize="20sp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"/>
+        </LinearLayout>
+
+</LinearLayout>

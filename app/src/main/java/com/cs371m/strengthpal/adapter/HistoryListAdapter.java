@@ -47,8 +47,14 @@ public class HistoryListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.history_list_item, null);
         }
 
-        TextView stuffText = (TextView) convertView.findViewById(R.id.stuff);
-        stuffText.setText(historyItems.get(position).getStuff());
+        TextView date = (TextView) convertView.findViewById(R.id.date);
+        date.setText(historyItems.get(position).getDate());
+
+        TextView count = (TextView) convertView.findViewById(R.id.num_exercises);
+        count.setText("" + historyItems.get(position).getCount());
+
+        TextView label = (TextView) convertView.findViewById(R.id.label);
+        label.setText((historyItems.get(position).getCount() > 1) ? "exercises":"exercise");
 
         return convertView;
     }

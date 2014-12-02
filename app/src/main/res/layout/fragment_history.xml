@@ -13,6 +13,16 @@
         android:layout_height="fill_parent">
 
         <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_count"
+            android:text="Show Count"
+            android:onClick="workoutCount"
+            android:background="@drawable/epic_button"
+            android:textColor="@drawable/white_button_text"
+            android:layout_margin="5dp"/>
+
+        <Button
             android:id="@+id/new_workout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,13 +33,14 @@
             android:textColor="@drawable/white_button_text"
             android:text="@string/new_workout"/>
 
-        <TableLayout
+        <ListView
+            android:id="@+id/history"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/new_workout_button"></TableLayout>
+            android:layout_above="@+id/new_workout_button"/>
 
     </RelativeLayout>
 

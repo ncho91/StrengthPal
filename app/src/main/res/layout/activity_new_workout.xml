@@ -9,31 +9,81 @@
     tools:context="com.cs371m.strengthpal.NewWorkoutActivity"
     android:id="@+id/new_workout_relativelayout">
 
-    <Button
-        android:id="@+id/add_exercise_button"
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/epic_button"
-        android:textColor="@drawable/white_button_text"
-        android:text="Add Exercise"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Exercise"
+        android:id="@+id/exercise_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="0dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
-    <Button
-        android:id="@+id/save_button"
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        android:layout_marginRight="0dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/epic_button"
-        android:textColor="@drawable/white_button_text"
-        android:text="Save"
-        android:onClick="saveWorkout"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Weight"
+        android:id="@+id/weight_entry"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/exercise_entry"
+        android:layout_toEndOf="@id/exercise_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Reps"
+        android:id="@+id/reps_entry"
+        android:layout_toRightOf="@+id/weight_entry"
+        android:layout_toEndOf="@id/weight_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sets"
+        android:id="@+id/sets_entry"
+        android:layout_toRightOf="@+id/reps_entry"
+        android:layout_toEndOf="@id/reps_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="   [X]"
+        android:id="@+id/remove_entry"
+        android:layout_toRightOf="@+id/sets_entry"
+        android:layout_toEndOf="@id/sets_entry"
+        android:padding="10dp"
+        android:textStyle="bold|italic"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#bf5300"
+        android:layout_below="@+id/exercise_entry"/>
 
     <ScrollView
         android:id="@+id/new_exercise_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_exercise_button"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/divider"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/divider2">
 
         <LinearLayout
             android:id="@+id/main_linearlayout"
@@ -44,7 +94,99 @@
         </LinearLayout>
 
     </ScrollView>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#bf5300"
+        android:layout_above="@+id/new_workout_row_detail_2"/>
+    <LinearLayout
+        android:id="@+id/new_workout_row_detail_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
 
+        <EditText
+            android:id="@+id/enter_exercise_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:lines="1"
+            android:maxLines="1"
+            android:width="100dp"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="64.38"
+            android:hint="@string/enter_exercise"
+            android:inputType="textNoSuggestions|textVisiblePassword"
+            android:imeOptions="actionNext"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/enter_weight_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:lines="1"
+            android:inputType="number"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:hint="@string/weight"
+            android:imeOptions="actionNext"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/enter_reps_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:lines="1"
+            android:inputType="number"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:hint="@string/reps"
+            android:imeOptions="actionNext"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/enter_sets_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:hint="@string/sets"
+            android:imeActionLabel="Add"
+            android:imeOptions="actionDone"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/add_exercise_button"
+            android:layout_width="48dp"
+            android:layout_height="27dp"
+            android:textSize="16sp"
+            android:background="@drawable/epic_button"
+            android:textColor="@drawable/white_button_text"
+            android:text="+"
+            android:onClick="addEntryAction"/>
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>
