@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chest_triceps">
+        <item>@string/bench_press</item>
+        <item>@string/incline_bench</item>
+        <item>@string/flat_db_bench</item>
+        <item>@string/dumbbell_flys</item>
+        <item>@string/dips</item>
+        <item>@string/skulL_crusher</item>
+        <item>@string/tricep_pushdown</item>
+    </string-array>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="leg_abs">
+        <item>@string/squat</item>
+        <item>@string/rdl</item>
+        <item>@string/leg_press</item>
+        <item>@string/leg_curls</item>
+        <item>@string/calf_raises</item>
+        <item>@string/leg_raises</item>
+        <item>@string/ab_wheel</item>
+    </string-array>
+</resources>

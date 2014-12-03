@@ -61,13 +61,30 @@ public class NewWorkoutActivity extends Activity {
         if(workout.equals("none")) {
             Log.v("blah", "no workout selected");
         }
-        else if (workout.equals("Starting Strength")){
+        else if (workout.equals("Chest and Triceps")){
             Log.v("blah", "workout.equals = " + workout);
-            Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Chest and Triceps selected", Toast.LENGTH_SHORT).show();
             populateJournal(this, workout);
             //add(mButton);
         }
-
+        else if (workout.equals("Back and Biceps")){
+            Log.v("blah", "workout.equals = " + workout);
+            Toast.makeText(context, "Back and Biceps selected", Toast.LENGTH_SHORT).show();
+            populateJournal(this, workout);
+            //add(mButton);
+        }
+        else if (workout.equals("Legs and Abs")){
+            Log.v("blah", "workout.equals = " + workout);
+            Toast.makeText(context, "Legs and Abs selected", Toast.LENGTH_SHORT).show();
+            populateJournal(this, workout);
+            //add(mButton);
+        }
+        else if (workout.equals("Shoulders and Arms")){
+            Log.v("blah", "workout.equals = " + workout);
+            Toast.makeText(context, "Shoulders and Arms selected", Toast.LENGTH_SHORT).show();
+            populateJournal(this, workout);
+            //add(mButton);
+        }
         //set listener for the done action on the keyboard
         mLastEntry = (EditText) findViewById(R.id.enter_sets_text_2);
 
@@ -124,7 +141,20 @@ public class NewWorkoutActivity extends Activity {
 
     // NEEDS NEW IMPLEMENTATION
     public void populateJournal(final Activity activity, String workout) {
-        String[] exercises = getResources().getStringArray(R.array.starting_strength_list_a);
+        String [] exercises = {};
+
+        if (workout.equals("Chest and Triceps")) {
+            exercises = getResources().getStringArray(R.array.chest_triceps);
+        }
+        else if (workout.equals("Back and Biceps")) {
+            exercises = getResources().getStringArray(R.array.back_bicep);
+        }
+        else if (workout.equals("Legs and Abs")) {
+            exercises = getResources().getStringArray(R.array.leg_abs);
+        }
+        else if (workout.equals("Shoulders and Arms")) {
+            exercises = getResources().getStringArray(R.array.shoulder_arms);
+        }
 
         final LinearLayout linearLayoutForm = (LinearLayout) activity.findViewById(R.id.main_linearlayout);
         for(int i = 0; i < exercises.length; i++) {

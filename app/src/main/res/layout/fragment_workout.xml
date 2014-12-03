@@ -16,7 +16,7 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/starting_strength_button"
+                android:id="@+id/chest_triceps"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -24,10 +24,10 @@
                 android:textSize="30sp"
                 android:background="@drawable/epic_button"
                 android:textColor="@drawable/white_button_text"
-                android:text="@string/starting_strength"/>
+                android:text="Chest and Triceps"/>
 
             <Button
-                android:id="@+id/strong_lifts_button"
+                android:id="@+id/back_biceps"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -35,7 +35,7 @@
                 android:textSize="30sp"
                 android:background="@drawable/epic_button"
                 android:textColor="@drawable/white_button_text"
-                android:text="@string/strong_lifts"/>
+                android:text="Back and Biceps"/>
 
         </LinearLayout>
 
@@ -45,7 +45,7 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/wendler_button"
+                android:id="@+id/legs_abs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -53,10 +53,10 @@
                 android:textSize="30sp"
                 android:background="@drawable/epic_button"
                 android:textColor="@drawable/white_button_text"
-                android:text="@string/wendler"/>
+                android:text="Legs and \n Abs"/>
 
             <Button
-                android:id="@+id/phat_button"
+                android:id="@+id/shoulder_arms"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -64,7 +64,7 @@
                 android:textSize="30sp"
                 android:background="@drawable/epic_button"
                 android:textColor="@drawable/white_button_text"
-                android:text="@string/phat"/>
+                android:text="Shoulders and Arms"/>
 
         </LinearLayout>
 

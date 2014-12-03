@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="back_bicep">
-        <item>@string/squat</item>
-        <item>@string/bench_press</item>
-        <item>@string/power_clean</item>
+        <item>@string/deadlift</item>
+        <item>@string/chin_up</item>
+        <item>@string/db_rows</item>
+        <item>@string/lat_pulldown</item>
+        <item>@string/bb_curls</item>
+        <item>@string/db_curls</item>
+        <item>@string/hammer_curl</item>
     </string-array>
 </resources>

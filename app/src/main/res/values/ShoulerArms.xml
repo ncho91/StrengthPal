@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shoulder_arms">
+        <item>@string/overhead_press</item>
+        <item>@string/db_shoulder_press</item>
+        <item>@string/db_lateral_raises</item>
+        <item>@string/bb_curls</item>
+        <item>@string/skulL_crusher</item>
+        <item>@string/db_curls</item>
+        <item>@string/tricep_pushdown</item>
+        <item>@string/hammer_curl</item>
+    </string-array>
+</resources>

@@ -37,26 +37,51 @@
     <string name="phat">Layne Norton P.H.A.T.</string>
 
     <!-- strings for different exercises for programs -->
-    <string name="bench_press">Bench press</string>
-    <string name="overhead_press">Overhead press</string>
-    <string name="squat">Squat</string>
     <string name="power_clean">Power clean</string>
+
+    <!-- Back-->
     <string name="deadlift">Deadlift</string>
-    <string name="barbell_row">Barbell row</string>
     <string name="chin_up">Chin up</string>
+    <string name="barbell_row">Barbell row</string>
     <string name="db_rows">Dumbbell rows</string>
-    <string name="bb_curls">Barbell curls</string>
     <string name="lat_pulldown">Lat pulldown</string>
     <string name="seated_row">Seated cable row</string>
-    <string name="db_curls">Dumbbell curl</string>
-    <string name="hammer_curl">Hammer curls</string>
+
+
+    <!--Chest-->
+    <string name="bench_press">Bench press</string>
+    <string name="dumbbell_flys">Dumbbell chest flys</string>
+    <string name="incline_bench">Incline bench press</string>
     <string name="dips">Dips</string>
-    <string name="leg_raises">Hanging leg raise</string>
     <string name="flat_db_bench">Flat dumbbell bench press</string>
-    <string name="skulL_crusher">Skull crushers</string>
+
+
+    <!--legs-->
+    <string name="squat">Barbell Squat</string>
+    <string name="rdl">Romanian deadlift</string>
     <string name="leg_extension">Leg extension</string>
     <string name="leg_curls">Leg curls</string>
     <string name="leg_press">Leg press</string>
+    <string name="calf_raises">Calf raises</string>
+
+    <!--shoulders and arms-->
+    <string name="overhead_press">Overhead press</string>
+    <string name="db_shoulder_press">Dumbbell shoulder press</string>
+    <string name="db_lateral_raises">Dumbbell lateral raises</string>
+    <string name="bb_curls">Barbell curls</string>
+    <string name="db_curls">Dumbbell curl</string>
+    <string name="hammer_curl">Hammer curls</string>
+    <string name="skulL_crusher">Skull crushers</string>
+    <string name="tricep_pushdown">Tricep pushdowns</string>
+    <string name="preacher_curl">Preacher curls</string>
+
+    <!--abs-->
+    <string name="leg_raises">Hanging leg raises</string>
+    <string name="ab_wheel">Ab wheel</string>
+    <string name="planks">Planks</string>
+
+
+
     <string name="title_activity_new_workout">New Workout</string>
     <string name="hello_world">Hello world!</string>
     <string name="about_info">Created with love, sweat, tears by Tyler Corley, Noah Cho, and Even Hvatum. Copyright 2014 All Rights Reserved.

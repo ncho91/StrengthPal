@@ -31,40 +31,40 @@ public class WorkoutFragment extends Fragment {
             fill out workout entries with default values as per program specification
          */
 
-        final Button startingStrengthButton = (Button) rootView.findViewById(R.id.starting_strength_button);
+        final Button startingStrengthButton = (Button) rootView.findViewById(R.id.chest_triceps);
         startingStrengthButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("workout_plan", "Starting Strength").commit();
-                Toast.makeText(context, "Starting Strength selected", Toast.LENGTH_SHORT).show();
+                ed.putString("workout_plan", "Chest and Triceps").commit();
+                Toast.makeText(context, "Chest and Triceps selected", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        final Button strongLiftsButton = (Button) rootView.findViewById(R.id.strong_lifts_button);
+        final Button strongLiftsButton = (Button) rootView.findViewById(R.id.back_biceps);
         strongLiftsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("workout_plan", "Strong Lifts").commit();
-                Toast.makeText(context, "Strong Lifts selected", Toast.LENGTH_SHORT).show();
+                ed.putString("workout_plan", "Back and Biceps").commit();
+                Toast.makeText(context, "Back and Biceps selected", Toast.LENGTH_SHORT).show();
             }
         });
 
-        final Button wendlerButton = (Button) rootView.findViewById(R.id.wendler_button);
+        final Button wendlerButton = (Button) rootView.findViewById(R.id.legs_abs);
         wendlerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("workout_plan", "Wendler 5/3/1").commit();
-                Toast.makeText(context, "Wendler 5/3/1 selected", Toast.LENGTH_SHORT).show();
+                ed.putString("workout_plan", "Legs and Abs").commit();
+                Toast.makeText(context, "Legs and Abs selected", Toast.LENGTH_SHORT).show();
             }
         });
 
-        final Button phatButton = (Button) rootView.findViewById(R.id.phat_button);
+        final Button phatButton = (Button) rootView.findViewById(R.id.shoulder_arms);
         phatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("workout_plan", "Layne Norton P.H.A.T.").commit();
-                Toast.makeText(context, "Layne Norton P.H.A.T. selected", Toast.LENGTH_SHORT).show();
+                ed.putString("workout_plan", "Shoulders and Arms").commit();
+                Toast.makeText(context, "Shoulers and Arms selected", Toast.LENGTH_SHORT).show();
             }
         });
 
