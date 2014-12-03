@@ -158,12 +158,12 @@ public class NewWorkoutActivity extends Activity {
 
         final LinearLayout linearLayoutForm = (LinearLayout) activity.findViewById(R.id.main_linearlayout);
         for(int i = 0; i < exercises.length; i++) {
-            final LinearLayout newView = (LinearLayout)activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail_2, null);
+            final LinearLayout newView = (LinearLayout)activity.getLayoutInflater().inflate(R.layout.new_workout_row_detail, null);
             newView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            EditText enterExerciseText = (EditText) newView.findViewById(R.id.enter_exercise_text_2);
-            EditText enterWeightText = (EditText) newView.findViewById(R.id.enter_weight_text_2);
-            EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text_2);
-            EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text_2);
+            EditText enterExerciseText = (EditText) newView.findViewById(R.id.enter_exercise_text);
+            EditText enterWeightText = (EditText) newView.findViewById(R.id.enter_weight_text);
+            EditText enterRepsText = (EditText) newView.findViewById(R.id.enter_reps_text);
+            EditText enterSetsText = (EditText) newView.findViewById(R.id.enter_sets_text);
             enterExerciseText.setText(exercises[i], EditText.BufferType.EDITABLE);
             linearLayoutForm.addView(newView);
         }
@@ -203,6 +203,15 @@ public class NewWorkoutActivity extends Activity {
             EditText weight = (EditText)e.findViewById(R.id.enter_weight_text);
             EditText reps = (EditText)e.findViewById(R.id.enter_reps_text);
             EditText sets = (EditText)e.findViewById(R.id.enter_sets_text);
+
+ 
+            if(exercise.getText().toString().matches("")
+                    || weight.getText().toString().matches("")
+                    || reps.getText().toString().matches("")
+                    || sets.getText().toString().matches("") ) {
+                Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             workoutDBEntries.add(new WorkoutDBEntry(workout_id,date,
                     exercise.getText().toString(),
                     Integer.parseInt(weight.getText().toString()),
