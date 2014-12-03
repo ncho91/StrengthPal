@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Tyler_iMac on 10/23/14.
@@ -36,12 +37,26 @@ public class HistoryFragment extends Fragment {
     private ListView mHistoryList;
     private HistoryListAdapter adapter;
     private ArrayList<HistoryItem> mHistoryItems;
+    ArrayList<String> aQuotes;
+    Random rand;
 
     public HistoryFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
+
+        // Add random Arnold quote if history is empty
+        aQuotes = new ArrayList<String>();
+        String[] q = getResources().getStringArray(R.array.arnold_quotes);
+        for(int i = 0; i < q.length; i++) {
+            aQuotes.add(q[i]);
+        }
+        rand = new Random();
+
+        TextView emptyHistory = (TextView) rootView.findViewById(R.id.emptyHistory);
+        String message = "\"" + randomMessage() + "\"" + "\n\n" + "- Arnold Schwarzenegger";
+        emptyHistory.setText(message);
 
         final Button newWorkoutButton = (Button) rootView.findViewById(R.id.new_workout_button);
         newWorkoutButton.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +73,7 @@ public class HistoryFragment extends Fragment {
 
         // ListView for the History
         mHistoryList = (ListView) rootView.findViewById(R.id.history);
+        mHistoryList.setEmptyView(emptyHistory);
         mHistoryList.setOnItemClickListener(new HistoryItemClickListener());
 
         adapter = new HistoryListAdapter(getActivity(), mHistoryItems);
@@ -154,4 +170,9 @@ public class HistoryFragment extends Fragment {
 
         return exercises;
     }
+
+    private String randomMessage() {
+        return aQuotes.get(rand.nextInt(aQuotes.size()));
+    }
+
 }
