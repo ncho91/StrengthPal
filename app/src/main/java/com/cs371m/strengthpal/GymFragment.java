@@ -192,12 +192,10 @@ public class GymFragment extends Fragment implements View.OnClickListener {
                 }
                 else {
                     // No results were found
-//                    Toast.makeText(getActivity(), "Unable to find local gyms", Toast.LENGTH_SHORT).show();
                 }
             }
             else {
                 // Location was unable to be determined
-//                Toast.makeText(getActivity(), "Unable to determine location", Toast.LENGTH_SHORT).show();
             }
 
             return "Success";
