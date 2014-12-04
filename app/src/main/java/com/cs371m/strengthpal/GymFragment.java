@@ -1,17 +1,16 @@
 package com.cs371m.strengthpal;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -193,12 +192,12 @@ public class GymFragment extends Fragment implements View.OnClickListener {
                 }
                 else {
                     // No results were found
-                    Toast.makeText(getActivity(), "Unable to find local gyms", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Unable to find local gyms", Toast.LENGTH_SHORT).show();
                 }
             }
             else {
                 // Location was unable to be determined
-                Toast.makeText(getActivity(), "Unable to determine location", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Unable to determine location", Toast.LENGTH_SHORT).show();
             }
 
             return "Success";

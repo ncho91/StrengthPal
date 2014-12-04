@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -48,6 +49,12 @@ public class MapPage extends Fragment {
                     map.addMarker(new MarkerOptions().position(new LatLng(coordinates[i][0],
                             coordinates[i][1])).title(names[i])
                             .snippet(addresses[i]));
+//                    map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                        @Override
+//                        public boolean onMarkerClick(Marker marker) {
+//                            gymClick(some position);
+//                        }
+//                    });
                 }
             }
         }

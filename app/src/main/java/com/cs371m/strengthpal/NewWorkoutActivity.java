@@ -55,6 +55,8 @@ public class NewWorkoutActivity extends Activity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("workout_prefs", MODE_PRIVATE);
         String workout = sharedPreferences.getString("workout_plan", "none");
+        Log.v("Persistence", "There shouldn't be a key in here anymore");
+        getSharedPreferences("workout_prefs", MODE_PRIVATE).edit().remove("workout_plan").commit();
         workout_id = sharedPreferences.getInt("running_workout_id", 0);
 
         //checked the shared preferences for workout_plan, if workout plan is chosen then populate journal, if not leave it blank
