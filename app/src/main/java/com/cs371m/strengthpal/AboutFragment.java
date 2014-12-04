@@ -45,6 +45,7 @@ public class AboutFragment extends Fragment {
                 new AlertDialog.Builder(getActivity())
                         .setPositiveButton(android.R.string.ok, null)
                         .setMessage(randomMessage())
+                        .setTitle("Arnold says: ")
                         .show();
             }
         });

@@ -54,9 +54,15 @@ public class HistoryFragment extends Fragment {
         }
         rand = new Random();
 
-        TextView emptyHistory = (TextView) rootView.findViewById(R.id.emptyHistory);
+        final TextView emptyHistory = (TextView) rootView.findViewById(R.id.emptyHistory);
         String message = "\"" + randomMessage() + "\"" + "\n\n" + "- Arnold Schwarzenegger";
         emptyHistory.setText(message);
+        emptyHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emptyHistory.setText("\"" + randomMessage() + "\"" + "\n\n" + "- Arnold Schwarzenegger");
+            }
+        });
 
         final Button newWorkoutButton = (Button) rootView.findViewById(R.id.new_workout_button);
         newWorkoutButton.setOnClickListener(new View.OnClickListener() {
