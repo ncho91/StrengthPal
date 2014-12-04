@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +33,7 @@ public class WorkoutFragment extends Fragment {
 
         prefs = getActivity().getSharedPreferences("workout_prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = prefs.edit();
-        ed.putString("workout_plan", "none").commit();
+        ed.putString("workout_plan", "none").apply();
         /*
             fill out workout entries with default values as per program specification
          */
@@ -43,9 +41,6 @@ public class WorkoutFragment extends Fragment {
         final Button startingStrengthButton = (Button) rootView.findViewById(R.id.chest_triceps);
         startingStrengthButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                SharedPreferences.Editor ed = prefs.edit();
-//                ed.putString("workout_plan", "Chest and Triceps").commit();
-                //Toast.makeText(context, "Chest and Triceps selected", Toast.LENGTH_SHORT).show();
                 showDetails("Chest and Triceps");
             }
         });
@@ -53,9 +48,6 @@ public class WorkoutFragment extends Fragment {
         final Button strongLiftsButton = (Button) rootView.findViewById(R.id.back_biceps);
         strongLiftsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                SharedPreferences.Editor ed = prefs.edit();
-//                ed.putString("workout_plan", "Back and Biceps").commit();
-//                Toast.makeText(context, "Back and Biceps selected", Toast.LENGTH_SHORT).show();
                 showDetails("Back and Biceps");
             }
         });
@@ -63,9 +55,6 @@ public class WorkoutFragment extends Fragment {
         final Button wendlerButton = (Button) rootView.findViewById(R.id.legs_abs);
         wendlerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                SharedPreferences.Editor ed = prefs.edit();
-//                ed.putString("workout_plan", "Legs and Abs").commit();
-//                Toast.makeText(context, "Legs and Abs selected", Toast.LENGTH_SHORT).show();
                 showDetails("Legs and Abs");
             }
         });
@@ -73,9 +62,6 @@ public class WorkoutFragment extends Fragment {
         final Button phatButton = (Button) rootView.findViewById(R.id.shoulder_arms);
         phatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                SharedPreferences.Editor ed = prefs.edit();
-//                ed.putString("workout_plan", "Shoulders and Arms").commit();
-//                Toast.makeText(context, "Shoulers and Arms selected", Toast.LENGTH_SHORT).show();
                 showDetails("Shoulders and Arms");
             }
         });

@@ -100,7 +100,7 @@ public class HistoryFragment extends Fragment {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat displaySDF = new SimpleDateFormat("MMM dd @ HH:mm");
+        SimpleDateFormat displaySDF = new SimpleDateFormat("MMM dd, yyyy hh:mm a");
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
