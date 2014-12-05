@@ -199,6 +199,10 @@ public class NewWorkoutActivity extends Activity {
     //function for button to save to database
     public void saveWorkout() {
         LinearLayout main = (LinearLayout)findViewById(R.id.main_linearlayout);
+        if(main.getChildCount() == 0) {
+            Toast.makeText(this, "You didn't add any workouts yet! What gives??", Toast.LENGTH_SHORT).show();
+            return;
+        }
         for (int i = 0; i < main.getChildCount(); i++) {
             LinearLayout e = (LinearLayout)main.getChildAt(i);
             EditText exercise = (EditText)e.findViewById(R.id.enter_exercise_text);
