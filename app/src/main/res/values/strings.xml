@@ -92,6 +92,8 @@
     <string name="button_list_view">View as a list</string>
     <string name="map_list_header">Nearby Gyms</string>
     <string name="searching_gyms">Searching for gyms...</string>
+    <string name="no_signal">No network detected</string>
+    <string name="no_results">Unable to find local gyms</string>
 
     <!-- strings for actionbar items in new workout -->
     <string name="add_exercise">Add Exercise</string>

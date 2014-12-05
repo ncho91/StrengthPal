@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -22,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+
 public class GymFragment extends Fragment implements View.OnClickListener {
 
     public GymFragment() {}
@@ -29,6 +29,8 @@ public class GymFragment extends Fragment implements View.OnClickListener {
     Fragment mapFragment;
     Fragment listFragment;
     Fragment emptyFragment;
+    Fragment noSignalFragment;
+    Fragment noResultsFragment;
     FragmentManager fragmentManager;
     Button switchView;
     Boolean onMap;
@@ -44,6 +46,8 @@ public class GymFragment extends Fragment implements View.OnClickListener {
         mapFragment = new MapPage();
         listFragment = new ListPage();
         emptyFragment = new EmptyPage();
+        noSignalFragment = new NoSignalPage();
+        noResultsFragment = new NoResultsPage();
 
         fragmentManager
                 .beginTransaction()
@@ -52,6 +56,8 @@ public class GymFragment extends Fragment implements View.OnClickListener {
 
         onMap = true;
         switchView = (Button) view.findViewById(R.id.switchViewsButton);
+        switchView.setAlpha(0);
+        switchView.setEnabled(false);
         switchView.setText("List Results");
         switchView.setOnClickListener(this);
 
@@ -189,13 +195,28 @@ public class GymFragment extends Fragment implements View.OnClickListener {
                             .setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out)
                             .replace(R.id.content_frame, mapFragment)
                             .commit();
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            switchView.setAlpha(1);
+                            switchView.setEnabled(true);
+                        }
+                    });
                 }
                 else {
                     // No results were found
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out)
+                            .replace(R.id.content_frame, noResultsFragment)
+                            .commit();
                 }
             }
             else {
                 // Location was unable to be determined
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out)
+                        .replace(R.id.content_frame, noSignalFragment)
+                        .commit();
             }
 
             return "Success";
